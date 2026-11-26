@@ -12,7 +12,7 @@ The page is styled like a circuit board: a dark grid, copper traces and solder p
 
 | Section | Content |
 |---|---|
-| Hero | Name, role, location and contact links |
+| Hero | Name, role, location, contact links and a framed profile photo (`assets/yuvan-raj.jpg`) |
 | Profile | A short summary |
 | Pinout (Skills) | Technical and professional skills |
 | Log (Experience) | PCB design, IT and web development internships |

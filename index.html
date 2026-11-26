@@ -184,6 +184,47 @@ h1 .accent{ color:var(--copper-bright); }
 .meta-row a:hover{ color:var(--copper-bright); border-color:var(--copper-bright); }
 .meta-row .dot{ color:var(--signal); }
 
+.hero-grid{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 200px;
+  gap:32px;
+  align-items:center;
+}
+.hero-photo{
+  position:relative;
+  margin:0;
+  padding:6px;
+  border:1px solid var(--line);
+  background:var(--bg-alt);
+}
+/* copper corner brackets, like component outline markings on a PCB */
+.hero-photo::before, .hero-photo::after{
+  content:'';
+  position:absolute;
+  width:14px; height:14px;
+  border:2px solid var(--copper);
+}
+.hero-photo::before{ top:-5px; left:-5px; border-right:none; border-bottom:none; }
+.hero-photo::after{ bottom:-5px; right:-5px; border-left:none; border-top:none; }
+.hero-photo img{
+  display:block;
+  width:100%;
+  height:auto;
+  aspect-ratio:480 / 642;
+  object-fit:cover;
+}
+.hero-photo figcaption{
+  font-family:'Space Mono',monospace;
+  font-size:11px;
+  letter-spacing:0.12em;
+  color:var(--text-dim);
+  padding:8px 2px 2px;
+}
+@media (max-width:640px){
+  .hero-grid{ grid-template-columns:1fr; gap:24px; }
+  .hero-photo{ order:-1; width:150px; }
+}
+
 /* ---------- profile ---------- */
 .profile-text{
   font-size:17px;
@@ -445,13 +486,21 @@ footer{
   <!-- HERO -->
   <div class="hero">
     <div class="chip-frame">
-      <div class="part-no">IC://ECE-2026 &nbsp;·&nbsp; STATUS <span>ACTIVE</span> &nbsp;·&nbsp; CHENNAI, IN</div>
-      <h1>YUVAN RAJ<br><span class="accent">M S</span></h1>
-      <div class="role">Embedded Systems &amp; Hardware Engineer</div>
-      <div class="meta-row">
-        <span><span class="dot">●</span> Chennai, Tamil Nadu</span>
-        <a href="tel:+917305086933">+91 7305086933</a>
-        <a href="mailto:mr3495@srmist.edu.in">mr3495@srmist.edu.in</a>
+      <div class="hero-grid">
+        <div class="hero-text">
+          <div class="part-no">IC://ECE-2026 &nbsp;·&nbsp; STATUS <span>ACTIVE</span> &nbsp;·&nbsp; CHENNAI, IN</div>
+          <h1>YUVAN RAJ<br><span class="accent">M S</span></h1>
+          <div class="role">Embedded Systems &amp; Hardware Engineer</div>
+          <div class="meta-row">
+            <span><span class="dot">●</span> Chennai, Tamil Nadu</span>
+            <a href="tel:+917305086933">+91 7305086933</a>
+            <a href="mailto:mr3495@srmist.edu.in">mr3495@srmist.edu.in</a>
+          </div>
+        </div>
+        <figure class="hero-photo">
+          <img src="assets/yuvan-raj.jpg" width="480" height="642" alt="Portrait of Yuvan Raj M S">
+          <figcaption>FIG.01 · PROFILE</figcaption>
+        </figure>
       </div>
     </div>
   </div>
@@ -661,8 +710,9 @@ footer{
   // Which elements count as layers. Text layers are typed in, the rest are framed or wiped.
   var TEXT_SEL = 'h1, h2, .part-no, .role, .eyebrow, .profile-text, .skill-group-label, .pin-list li, ' +
                  '.job-title, .job-org, .job li, .proj-name, .proj-card p, .entry-title, .entry-sub, .entry p, ' +
-                 '.footer-cta, .meta-row > *, .footer-links > *, .foot-note';
-  var LAYER_SEL = TEXT_SEL + ', .trace, .hero, .chip-frame, .meta-row, section, .pad, .skill-cols, .skill-cols > div, ' +
+                 '.footer-cta, .meta-row > *, .footer-links > *, .foot-note, .hero-photo figcaption';
+  var LAYER_SEL = TEXT_SEL + ', .trace, .hero, .chip-frame, .hero-grid, .hero-text, .hero-photo, .hero-photo img, ' +
+                  '.meta-row, section, .pad, .skill-cols, .skill-cols > div, ' +
                   '.pin-list, .job, .job-head, .job ul, .proj-grid, .proj-card, .two-col, .two-col > div, .entry, footer, .footer-links';
 
   var backdrop = document.querySelector('.swarm-backdrop');
