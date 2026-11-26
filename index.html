@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Yuvan Raj M S — Embedded Systems & Hardware Engineer</title>
+<title>Yuvan Raj M S — UI/UX &amp; Web Designer</title>
+<meta name="description" content="Portfolio of Yuvan Raj M S, a UI/UX and web designer in Chennai who designs in Figma and builds with HTML, CSS, JavaScript, WordPress, Framer and Webflow.">
 <script>
   // Swarm build: only runs with JS and when the visitor has not asked for reduced motion.
   try{
@@ -13,19 +14,24 @@
   }catch(e){}
 </script>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
+/* ---------- tokens: a design-tool canvas ---------- */
 :root{
-  --bg: #0A0E1A;
-  --bg-alt: #10182C;
-  --copper: #C9793D;
-  --copper-bright: #F0A05C;
-  --signal: #4ADE80;
-  --blue: #5B7FFF;
-  --text: #F1EFE9;
-  --text-dim: #8B93A8;
-  --line: #232B44;
+  --bg: #0E0F13;          /* the canvas */
+  --dot: #262A33;         /* canvas dot grid */
+  --surface: #16181E;     /* a frame on the canvas */
+  --surface-2: #1F222A;   /* a layer inside a frame */
+  --ink: #F3F4F6;
+  --ink-dim: #A3A9B5;
+  --accent: #0D99FF;      /* selection blue */
+  --accent-press: #0A7FD6;
+  --signal: #14AE5C;
+  --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --gutter: 32px;
 }
+@media (max-width:640px){ :root{ --gutter: 18px; } }
 
 *{margin:0;padding:0;box-sizing:border-box;}
 
@@ -33,179 +39,168 @@
   *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important;}
 }
 
-html{scroll-behavior:smooth;}
+html{scroll-behavior:smooth; scroll-padding-top:24px;}
 
 body{
-  background:var(--bg);
-  color:var(--text);
-  font-family:'Inter',sans-serif;
+  background-color:var(--bg);
+  background-image:radial-gradient(circle at 1px 1px, var(--dot) 1px, transparent 1.3px);
+  background-size:24px 24px;
+  color:var(--ink);
+  font-family:var(--sans);
+  font-size:17px;
   line-height:1.6;
   overflow-x:hidden;
-  background-image:
-    linear-gradient(var(--line) 1px, transparent 1px),
-    linear-gradient(90deg, var(--line) 1px, transparent 1px);
-  background-size:48px 48px;
-  background-position:-1px -1px;
+  -webkit-font-smoothing:antialiased;
 }
 
-.mono{font-family:'Space Mono',monospace;}
+a{color:inherit;}
+::selection{background:var(--accent); color:#fff;}
+:focus-visible{outline:2px solid var(--accent); outline-offset:3px;}
 
-a{color:var(--copper-bright);}
-
-::selection{background:var(--copper); color:var(--bg);}
-
-/* ---------- layout shell ---------- */
 .wrap{
-  max-width:920px;
+  max-width:1184px;
   margin:0 auto;
-  padding:0 28px;
+  padding:0 var(--gutter);
   position:relative;
 }
 
-.trace{
-  position:absolute;
-  left:8px;
-  top:0;
-  bottom:0;
-  width:2px;
-  background:linear-gradient(var(--copper) 0%, var(--copper) 100%);
-  opacity:0.35;
-}
-@media (max-width:720px){ .trace{display:none;} }
-
-.pad{
-  position:absolute;
-  left:2px;
-  width:14px;
-  height:14px;
-  border-radius:3px;
-  background:var(--bg);
-  border:2px solid var(--copper);
-}
-.pad::after{
-  content:'';
-  position:absolute;
-  inset:3px;
-  border-radius:1px;
-  background:var(--copper);
-}
-@media (max-width:720px){ .pad{display:none;} }
-
-section{
-  position:relative;
-  padding:64px 0 64px 44px;
-  border-bottom:1px solid var(--line);
-}
-@media (max-width:720px){ section{padding-left:0;} }
-
-section:last-of-type{border-bottom:none;}
-
-.eyebrow{
-  font-family:'Space Mono',monospace;
-  font-size:12px;
-  letter-spacing:0.15em;
-  color:var(--copper-bright);
-  text-transform:uppercase;
-  margin-bottom:14px;
+/* ---------- navigation: a plain bar ---------- */
+.nav{
   display:flex;
   align-items:center;
-  gap:10px;
+  justify-content:space-between;
+  gap:24px;
+  padding:22px 0;
 }
-.eyebrow::before{
-  content:'//';
-  color:var(--text-dim);
+.wordmark{ font-weight:700; font-size:17px; text-decoration:none; letter-spacing:-0.01em; }
+.nav-links{ display:flex; align-items:center; gap:28px; list-style:none; }
+.nav-links a{ text-decoration:none; color:var(--ink-dim); font-size:15px; transition:color .15s ease; }
+.nav-links a:hover{ color:var(--ink); }
+.nav-links .nav-cta{ color:#fff; }
+@media (max-width:860px){ .nav-links li:not(:last-child){ display:none; } }
+
+/* ---------- buttons ---------- */
+.btn{
+  display:inline-flex; align-items:center; justify-content:center;
+  min-height:48px; padding:0 22px;
+  border-radius:999px;
+  font-size:16px; font-weight:600; text-decoration:none;
+  transition:background-color .15s ease, transform .15s ease, color .15s ease;
 }
+.btn:active{ transform:translateY(1px); }
+.btn-primary{ background:var(--accent); color:#fff; }
+.btn-primary:hover{ background:var(--accent-press); }
+.btn-quiet{ background:var(--surface-2); color:var(--ink); }
+.btn-quiet:hover{ background:#2A2E37; }
+.nav .btn{ min-height:40px; padding:0 18px; font-size:15px; }
+
+/* ---------- frames: every section is a frame on the canvas ---------- */
+.frame{
+  position:relative;
+  background:var(--surface);
+  padding:64px;
+  margin-top:120px;
+}
+@media (max-width:860px){ .frame{ padding:40px 28px; margin-top:96px; } }
+@media (max-width:640px){ .frame{ padding:32px 20px; } }
+
+/* the layer name a design tool shows above a frame */
+.frame-label{
+  position:absolute;
+  left:0; top:-28px;
+  font-family:var(--mono);
+  font-size:13px;
+  color:var(--ink-dim);
+  white-space:nowrap;
+}
+.frame-label b{ color:var(--accent); font-weight:500; }
 
 h2{
-  font-family:'Space Mono',monospace;
-  font-size:clamp(22px,3.2vw,30px);
-  font-weight:700;
-  margin-bottom:28px;
-  color:var(--text);
+  font-size:clamp(34px, 4.4vw, 56px);
+  font-weight:800;
+  line-height:1;
+  letter-spacing:-0.035em;
+  margin-bottom:40px;
 }
+h3{ font-size:20px; font-weight:700; letter-spacing:-0.01em; line-height:1.3; }
 
 /* ---------- hero ---------- */
-.hero{
-  padding:90px 0 70px 0;
-  border-bottom:1px solid var(--line);
-  position:relative;
-}
-.chip-frame{
-  border:1px solid var(--line);
-  background:linear-gradient(180deg, rgba(201,121,61,0.06), transparent 60%);
-  padding:36px 32px;
-  position:relative;
-}
-.chip-frame::before, .chip-frame::after{
-  content:'';
-  position:absolute;
-  width:22px; height:2px;
-  background:var(--copper);
-  top:24px;
-}
-.chip-frame::before{ left:-22px; }
-.chip-frame::after{ right:-22px; }
-
-.part-no{
-  font-family:'Space Mono',monospace;
-  font-size:13px;
-  color:var(--text-dim);
-  letter-spacing:0.1em;
-  margin-bottom:18px;
-}
-.part-no span{ color:var(--signal); }
-
-h1{
-  font-family:'Space Mono',monospace;
-  font-size:clamp(38px,7vw,64px);
-  font-weight:700;
-  line-height:1.05;
-  letter-spacing:-0.01em;
-  margin-bottom:16px;
-}
-h1 .accent{ color:var(--copper-bright); }
-
-.role{
-  font-size:clamp(17px,2.4vw,20px);
-  color:var(--text-dim);
-  font-weight:500;
-  margin-bottom:28px;
-}
-
-.meta-row{
-  display:flex;
-  flex-wrap:wrap;
-  gap:24px;
-  font-family:'Space Mono',monospace;
-  font-size:13px;
-  color:var(--text-dim);
-}
-.meta-row a{ color:var(--text-dim); text-decoration:none; border-bottom:1px dashed var(--line); }
-.meta-row a:hover{ color:var(--copper-bright); border-color:var(--copper-bright); }
-.meta-row .dot{ color:var(--signal); }
-
+.hero{ margin-top:72px; padding-top:72px; padding-bottom:72px; }
+@media (max-width:860px){ .hero{ margin-top:56px; } }
 .hero-grid{
   display:grid;
-  grid-template-columns:minmax(0,1fr) 200px;
-  gap:32px;
+  grid-template-columns:minmax(0,1fr) 300px;
+  gap:64px;
   align-items:center;
 }
-.hero-photo{
+@media (max-width:960px){ .hero-grid{ grid-template-columns:minmax(0,1fr) 220px; gap:40px; } }
+@media (max-width:640px){ .hero-grid{ grid-template-columns:1fr; gap:36px; } }
+
+/* a selected layer: blue outline, white square handles, size readout */
+.sel{
   position:relative;
-  margin:0;
-  padding:6px;
-  border:1px solid var(--line);
-  background:var(--bg-alt);
+  display:inline-block;
+  outline:1px solid var(--accent);
+  outline-offset:6px;
 }
-/* copper corner brackets, like component outline markings on a PCB */
-.hero-photo::before, .hero-photo::after{
-  content:'';
+.handle{
   position:absolute;
-  width:14px; height:14px;
-  border:2px solid var(--copper);
+  width:9px; height:9px;
+  background:#fff;
+  border:1px solid var(--accent);
 }
-.hero-photo::before{ top:-5px; left:-5px; border-right:none; border-bottom:none; }
-.hero-photo::after{ bottom:-5px; right:-5px; border-left:none; border-top:none; }
+.handle.tl{ left:-11px; top:-11px; }
+.handle.tr{ right:-11px; top:-11px; }
+.handle.bl{ left:-11px; bottom:-11px; }
+.handle.br{ right:-11px; bottom:-11px; }
+.size{
+  position:absolute;
+  left:50%; bottom:-38px;
+  transform:translateX(-50%);
+  background:var(--accent);
+  color:#fff;
+  font-family:var(--mono);
+  font-size:12px;
+  line-height:1;
+  padding:5px 7px;
+  border-radius:3px;
+  white-space:nowrap;
+}
+[data-swarm] > .handle, [data-swarm] > .size{ opacity:0; }
+
+h1{
+  font-size:clamp(52px, 8.4vw, 112px);
+  font-weight:800;
+  line-height:0.92;
+  letter-spacing:-0.045em;
+}
+.role{
+  margin-top:56px;
+  font-size:clamp(24px, 2.6vw, 32px);
+  font-weight:700;
+  letter-spacing:-0.02em;
+  line-height:1.15;
+}
+.lede{
+  margin-top:18px;
+  max-width:560px;
+  font-size:18px;
+  color:var(--ink);
+}
+.actions{ display:flex; flex-wrap:wrap; gap:12px; margin-top:32px; }
+.meta{
+  display:flex; flex-wrap:wrap; gap:8px 28px;
+  margin-top:36px;
+  font-size:15px;
+  color:var(--ink-dim);
+}
+.meta a{ text-decoration:none; transition:color .15s ease; }
+.meta a:hover{ color:var(--ink); }
+.meta .dot{ color:var(--signal); margin-right:6px; }
+
+/* the portrait, shown as a selected image layer */
+.hero-photo{ position:relative; margin:0; }
+.hero-photo .sel{ display:block; outline-offset:0; }
 .hero-photo img{
   display:block;
   width:100%;
@@ -214,172 +209,124 @@ h1 .accent{ color:var(--copper-bright); }
   object-fit:cover;
 }
 .hero-photo figcaption{
-  font-family:'Space Mono',monospace;
-  font-size:11px;
-  letter-spacing:0.12em;
-  color:var(--text-dim);
-  padding:8px 2px 2px;
+  margin-top:34px;
+  font-family:var(--mono);
+  font-size:13px;
+  color:var(--ink-dim);
+  white-space:nowrap;
 }
 @media (max-width:640px){
-  .hero-grid{ grid-template-columns:1fr; gap:24px; }
-  .hero-photo{ order:-1; width:150px; }
+  .hero-photo{ order:-1; width:180px; }
+  .role{ margin-top:52px; }
 }
 
-/* ---------- profile ---------- */
-.profile-text{
-  font-size:17px;
-  color:var(--text);
-  max-width:680px;
-}
-
-/* ---------- skills ---------- */
-.skill-cols{
+/* ---------- about ---------- */
+.about-grid{
   display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:36px;
+  grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);
+  gap:64px;
 }
-@media (max-width:600px){ .skill-cols{grid-template-columns:1fr;} }
+@media (max-width:860px){ .about-grid{ grid-template-columns:1fr; gap:40px; } }
+.about-text p{ font-size:19px; line-height:1.6; }
+.about-text p + p{ margin-top:18px; }
+.facts{ display:grid; gap:4px; align-content:start; }
+.fact{ background:var(--surface-2); padding:18px 20px; }
+.fact dt{ font-size:14px; color:var(--ink-dim); margin-bottom:2px; }
+.fact dd{ font-size:17px; font-weight:600; }
 
-.skill-group-label{
-  font-family:'Space Mono',monospace;
-  font-size:12px;
-  color:var(--signal);
-  letter-spacing:0.1em;
-  margin-bottom:14px;
-  text-transform:uppercase;
-}
-.pin-list{ list-style:none; display:flex; flex-direction:column; gap:0; }
-.pin-list li{
-  font-family:'Space Mono',monospace;
-  font-size:14px;
-  padding:10px 0;
-  border-bottom:1px solid var(--line);
-  display:flex;
-  align-items:center;
-  gap:10px;
-  color:var(--text);
-}
-.pin-list li::before{
-  content:'';
-  width:6px; height:6px;
-  border-radius:50%;
-  background:var(--copper);
-  flex-shrink:0;
-}
-
-/* ---------- experience ---------- */
-.job{
-  margin-bottom:36px;
-  padding-bottom:36px;
-  border-bottom:1px solid var(--line);
-}
-.job:last-child{ border-bottom:none; margin-bottom:0; padding-bottom:0; }
-
-.job-head{
-  display:flex;
-  justify-content:space-between;
-  align-items:baseline;
-  flex-wrap:wrap;
-  gap:8px;
-  margin-bottom:10px;
-}
-.job-title{ font-size:18px; font-weight:700; color:var(--text); }
-.job-org{
-  font-family:'Space Mono',monospace;
-  font-size:13px;
-  color:var(--copper-bright);
-}
-.job ul{ padding-left:20px; color:var(--text-dim); font-size:15px; }
-.job li{ margin-bottom:6px; }
-
-/* ---------- projects ---------- */
-.proj-grid{
+/* ---------- toolkit ---------- */
+.toolkit{
   display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:24px;
-}
-@media (max-width:680px){ .proj-grid{grid-template-columns:1fr;} }
-
-.proj-card{
-  border:1px solid var(--line);
-  padding:26px;
-  background:var(--bg-alt);
-  position:relative;
-  transition:border-color 0.2s ease, transform 0.2s ease;
-}
-.proj-card:hover{ border-color:var(--copper); transform:translateY(-2px); }
-.proj-card::before{
-  content:'PROJ';
-  position:absolute;
-  top:14px; right:16px;
-  font-family:'Space Mono',monospace;
-  font-size:10px;
-  letter-spacing:0.15em;
-  color:var(--line);
-}
-.proj-name{
-  font-family:'Space Mono',monospace;
-  font-size:17px;
-  font-weight:700;
-  margin-bottom:14px;
-  color:var(--text);
-}
-.proj-card p{ color:var(--text-dim); font-size:14.5px; margin-bottom:8px; }
-
-/* ---------- awards / conferences ---------- */
-.entry{ margin-bottom:24px; }
-.entry:last-child{ margin-bottom:0; }
-.entry-title{ font-weight:700; font-size:16px; margin-bottom:4px; }
-.entry-sub{
-  font-family:'Space Mono',monospace;
-  font-size:12.5px;
-  color:var(--signal);
-  margin-bottom:8px;
-}
-.entry p{ color:var(--text-dim); font-size:14.5px; }
-
-/* ---------- two col generic ---------- */
-.two-col{
-  display:grid;
-  grid-template-columns:1fr 1fr;
+  grid-template-columns:repeat(4, minmax(0,1fr));
   gap:40px;
 }
-@media (max-width:680px){ .two-col{grid-template-columns:1fr;} }
+@media (max-width:1000px){ .toolkit{ grid-template-columns:repeat(2, minmax(0,1fr)); } }
+@media (max-width:560px){ .toolkit{ grid-template-columns:1fr; gap:32px; } }
+.toolkit h3{ margin-bottom:16px; }
+.tags{ display:flex; flex-wrap:wrap; gap:8px; list-style:none; }
+.tag{
+  background:var(--surface-2);
+  padding:8px 12px;
+  border-radius:999px;
+  font-size:15px;
+  line-height:1.3;
+}
+.tags.lead .tag{ background:var(--accent); color:#fff; }
 
-/* ---------- footer ---------- */
-footer{
-  padding:70px 0 60px 44px;
-  text-align:left;
+/* ---------- experience ---------- */
+.exp{ display:grid; gap:4px; }
+.exp-row{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(0,1.6fr);
+  gap:40px;
+  background:var(--surface-2);
+  padding:32px;
 }
-@media (max-width:720px){ footer{padding-left:0;} }
-.footer-cta{
-  font-family:'Space Mono',monospace;
-  font-size:clamp(26px,5vw,40px);
+@media (max-width:760px){ .exp-row{ grid-template-columns:1fr; gap:14px; padding:24px 20px; } }
+.exp-org{ margin-top:4px; color:var(--ink-dim); font-size:16px; }
+.exp-row ul{ padding-left:20px; }
+.exp-row li{ margin-bottom:8px; }
+.exp-row li:last-child{ margin-bottom:0; }
+
+/* ---------- work ---------- */
+.work-feature{
+  display:grid;
+  grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);
+  gap:48px;
+  align-items:center;
+}
+@media (max-width:860px){ .work-feature{ grid-template-columns:1fr; gap:28px; } }
+.work-shot{ display:block; width:100%; height:auto; aspect-ratio:1440 / 900; object-fit:cover; background:var(--surface-2); }
+.work-feature h3{ font-size:clamp(26px, 2.6vw, 34px); font-weight:800; letter-spacing:-0.025em; line-height:1.1; }
+.work-feature p{ margin-top:14px; }
+.work-feature .actions{ margin-top:24px; }
+.work-sub{ margin:72px 0 20px; font-size:22px; }
+.work-grid{
+  display:grid;
+  grid-template-columns:repeat(2, minmax(0,1fr));
+  gap:4px;
+}
+@media (max-width:760px){ .work-grid{ grid-template-columns:1fr; } }
+.card{ background:var(--surface-2); padding:32px; transition:background-color .2s ease; }
+.card:hover{ background:#252932; }
+.card p{ margin-top:12px; color:var(--ink); }
+.card p + p{ margin-top:8px; }
+
+/* ---------- learning & activities ---------- */
+.two-col{
+  display:grid;
+  grid-template-columns:repeat(2, minmax(0,1fr));
+  gap:64px;
+}
+@media (max-width:860px){ .two-col{ grid-template-columns:1fr; gap:48px; } }
+.col-title{ font-size:22px; margin-bottom:20px; }
+.entry + .entry{ margin-top:28px; }
+.entry-sub{ margin-top:2px; font-size:15px; color:var(--ink-dim); }
+.entry p{ margin-top:8px; }
+
+/* ---------- contact ---------- */
+.contact{ padding-top:88px; padding-bottom:88px; }
+.contact h2{ max-width:820px; margin-bottom:28px; }
+.contact-mail{
+  display:inline-block;
+  font-size:clamp(24px, 3.4vw, 40px);
   font-weight:700;
-  margin-bottom:24px;
-  line-height:1.2;
-}
-.footer-cta a{
-  color:var(--copper-bright);
+  letter-spacing:-0.02em;
+  color:var(--accent);
   text-decoration:none;
-  border-bottom:2px solid var(--copper);
+  word-break:break-word;
+  transition:color .15s ease;
 }
-.footer-links{
-  display:flex;
-  gap:24px;
-  flex-wrap:wrap;
-  font-family:'Space Mono',monospace;
-  font-size:13px;
+.contact-mail:hover{ color:#fff; }
+.contact .meta{ margin-top:28px; }
+
+footer{
+  display:flex; flex-wrap:wrap; justify-content:space-between; gap:12px;
+  padding:48px 0 120px;
+  font-size:14px;
+  color:var(--ink-dim);
 }
-.footer-links a{ color:var(--text-dim); text-decoration:none; }
-.footer-links a:hover{ color:var(--copper-bright); }
-.foot-note{
-  margin-top:50px;
-  font-family:'Space Mono',monospace;
-  font-size:11px;
-  color:var(--line);
-  letter-spacing:0.08em;
-}
+@media (max-width:809px){ footer{ padding-bottom:140px; } }
 
 /* ---------- swarm build (agents draw the page in) ---------- */
 /* layers waiting to be built */
@@ -404,7 +351,7 @@ footer{
 .swarm-tile{
   width:52px; height:52px; border-radius:14px;
   background:#141821; border:1px solid #283041;
-  box-shadow:0 0 0 5px rgba(201,121,61,0.07), 0 10px 30px rgba(0,0,0,0.5);
+  box-shadow:0 0 0 5px rgba(13,153,255,0.08), 0 10px 30px rgba(0,0,0,0.5);
   display:flex; align-items:center; justify-content:center;
 }
 .swarm-on .swarm-canvas{
@@ -422,7 +369,7 @@ footer{
   border:1px solid #252932; border-radius:11px;
   box-shadow:0 12px 32px rgba(0,0,0,0.5);
   color:#a9afbb;
-  font:400 11px/14px 'Space Mono',monospace;
+  font:400 11px/14px var(--mono);
   white-space:nowrap;
   backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
 }
@@ -439,14 +386,14 @@ footer{
 .swarm-hud .dim{ color:#6f7684; }
 .swarm-hud .count{ color:#e7e9ee; }
 .swarm-hud .bar{ width:52px; min-width:52px; height:3px; border-radius:2px; background:#262a33; overflow:hidden; display:block; }
-.swarm-hud .bar i{ display:block; height:100%; width:0; background:var(--copper-bright); transition:width 0.2s; }
+.swarm-hud .bar i{ display:block; height:100%; width:0; background:var(--accent); transition:width 0.2s; }
 .swarm-hud button{
   border:none; outline:none; cursor:pointer;
   padding:4px 8px; border-radius:6px;
   background:#1b1e25; color:#e7e9ee;
-  font:400 11px/14px 'Space Mono',monospace;
+  font:400 11px/14px var(--mono);
 }
-.swarm-hud button:focus-visible{ outline:1px solid var(--copper-bright); }
+.swarm-hud button:focus-visible{ outline:1px solid var(--accent); }
 .swarm-hud button.x{ background:transparent; color:#6f7684; }
 @media (max-width:809px){
   .swarm-on .swarm-hud{
@@ -468,7 +415,7 @@ footer{
   <div class="swarm-tile">
     <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
       <rect x="2" y="2" width="22" height="22" rx="5" stroke="#9aa6bd" stroke-width="1.5" stroke-dasharray="3 3"/>
-      <path d="M9 7 L9 18 L12 15.2 L14.1 19.6 L15.9 18.8 L13.9 14.5 L17.8 14.5 Z" fill="#F0A05C"/>
+      <path d="M9 7 L9 18 L12 15.2 L14.1 19.6 L15.9 18.8 L13.9 14.5 L17.8 14.5 Z" fill="#0D99FF"/>
     </svg>
   </div>
 </div>
@@ -481,206 +428,269 @@ footer{
 </div>
 
 <div class="wrap">
-  <div class="trace"></div>
 
-  <!-- HERO -->
-  <div class="hero">
-    <div class="chip-frame">
+  <header class="nav">
+    <a class="wordmark" href="#top">Yuvan Raj</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#toolkit">Toolkit</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#work">Work</a></li>
+      <li><a class="btn btn-primary nav-cta" href="#contact">Get in touch</a></li>
+    </ul>
+  </header>
+
+  <main id="top">
+
+    <!-- HERO -->
+    <section class="frame hero" aria-label="Introduction">
+      <span class="frame-label"><b>#</b> hero</span>
       <div class="hero-grid">
         <div class="hero-text">
-          <div class="part-no">IC://ECE-2026 &nbsp;·&nbsp; STATUS <span>ACTIVE</span> &nbsp;·&nbsp; CHENNAI, IN</div>
-          <h1>YUVAN RAJ<br><span class="accent">M S</span></h1>
-          <div class="role">Embedded Systems &amp; Hardware Engineer</div>
-          <div class="meta-row">
-            <span><span class="dot">●</span> Chennai, Tamil Nadu</span>
+          <div class="sel" id="name-layer">
+            <h1>Yuvan Raj M&nbsp;S</h1>
+            <span class="handle tl" aria-hidden="true"></span>
+            <span class="handle tr" aria-hidden="true"></span>
+            <span class="handle bl" aria-hidden="true"></span>
+            <span class="handle br" aria-hidden="true"></span>
+            <span class="size" id="name-size" aria-hidden="true">Text</span>
+          </div>
+          <p class="role">UI/UX &amp; Web Designer</p>
+          <p class="lede">I design interfaces in Figma and build them for the web with HTML, CSS and JavaScript, WordPress, Framer and Webflow.</p>
+          <div class="actions">
+            <a class="btn btn-primary" href="#work">See my work</a>
+            <a class="btn btn-quiet" href="mailto:mr3495@srmist.edu.in">Email me</a>
+          </div>
+          <div class="meta">
+            <span><span class="dot">●</span>Chennai, Tamil Nadu</span>
             <a href="tel:+917305086933">+91 7305086933</a>
             <a href="mailto:mr3495@srmist.edu.in">mr3495@srmist.edu.in</a>
           </div>
         </div>
         <figure class="hero-photo">
-          <img src="assets/yuvan-raj.jpg" width="480" height="642" alt="Portrait of Yuvan Raj M S">
-          <figcaption>FIG.01 · PROFILE</figcaption>
+          <div class="sel">
+            <img src="assets/yuvan-raj.jpg" width="480" height="642" alt="Portrait of Yuvan Raj M S">
+            <span class="handle tl" aria-hidden="true"></span>
+            <span class="handle tr" aria-hidden="true"></span>
+            <span class="handle bl" aria-hidden="true"></span>
+            <span class="handle br" aria-hidden="true"></span>
+          </div>
+          <figcaption>portrait.jpg · 480 × 642</figcaption>
         </figure>
       </div>
-    </div>
-  </div>
+    </section>
 
-  <!-- PROFILE -->
-  <section id="profile" class="fade-up">
-    <div class="pad" style="top:14px;"></div>
-    <div class="eyebrow">Profile</div>
-    <h2>What I build and why</h2>
-    <p class="profile-text">
-      Electronics and Communication Engineering graduate (B.Tech, SRM Institute of Science and Technology) with hands-on experience across PCB design, IT support, and web development. Skilled in component sourcing and IC/part cross-referencing, embedded systems fundamentals (Arduino, sensor interfacing), and Python/C++ programming. Best Paper Award recipient for research on AI-powered medical devices. Looking to apply a strong hardware foundation and practical project experience to an embedded/hardware engineering role.
-    </p>
-  </section>
-
-  <!-- SKILLS -->
-  <section id="skills" class="fade-up">
-    <div class="pad" style="top:14px;"></div>
-    <div class="eyebrow">Pinout</div>
-    <h2>Skills</h2>
-    <div class="skill-cols">
-      <div>
-        <div class="skill-group-label">Technical</div>
-        <ul class="pin-list">
-          <li>Python</li>
-          <li>C++</li>
-          <li>Embedded Systems (Arduino)</li>
-          <li>Sensor Interfacing</li>
-          <li>PCB Design Fundamentals</li>
-          <li>Microsoft Word</li>
-        </ul>
+    <!-- ABOUT -->
+    <section class="frame" id="about">
+      <span class="frame-label"><b>#</b> about</span>
+      <h2>About</h2>
+      <div class="about-grid">
+        <div class="about-text">
+          <p>I'm a UI/UX and web designer with an engineering degree. I plan layouts and user flows in Figma, then bring them to life in code or in WordPress, Framer and Webflow.</p>
+          <p>I studied Electronics and Communication Engineering at SRM Institute of Science and Technology and spent a year as a web developer intern at StringOne, building and maintaining web applications in a real team.</p>
+          <p>My hardware background, from PCB design to a Best Paper Award for research on AI-powered medical devices, taught me to care about the details and to make things that work reliably.</p>
+        </div>
+        <dl class="facts">
+          <div class="fact"><dt>Based in</dt><dd>Chennai, Tamil Nadu</dd></div>
+          <div class="fact"><dt>Education</dt><dd>B.Tech, ECE · SRM IST, 2022 – 2026 · CGPA 7.75</dd></div>
+          <div class="fact"><dt>Recognition</dt><dd>Best Paper Award, ICMCCT '25</dd></div>
+          <div class="fact"><dt>Languages</dt><dd>Tamil (native) · English (fluent)</dd></div>
+        </dl>
       </div>
-      <div>
-        <div class="skill-group-label">Professional</div>
-        <ul class="pin-list">
-          <li>Team Collaboration</li>
-          <li>Communication</li>
-          <li>Time Management</li>
-          <li>Data Management</li>
-          <li>Quality Assurance</li>
-          <li>Relationship Building</li>
-          <li>Environmental Awareness</li>
-        </ul>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- EXPERIENCE -->
-  <section id="experience" class="fade-up">
-    <div class="pad" style="top:14px;"></div>
-    <div class="eyebrow">Log</div>
-    <h2>Experience</h2>
-
-    <div class="job">
-      <div class="job-head">
-        <span class="job-title">PCB Design Intern</span>
-        <span class="job-org mono">QuantumPulse Technologies</span>
-      </div>
-      <ul>
-        <li>Learned how to source electronic components and parts for PCB designs from online distributors and supplier catalogs.</li>
-        <li>Studied IC datasheets and component specifications to identify suitable replacement parts for discontinued or legacy components.</li>
-      </ul>
-    </div>
-
-    <div class="job">
-      <div class="job-head">
-        <span class="job-title">IT Intern</span>
-        <span class="job-org mono">ISTEEL</span>
-      </div>
-      <ul>
-        <li>Supported day-to-day IT operations and troubleshooting tasks within the organization.</li>
-        <li>Assisted with system maintenance and general technical support duties.</li>
-      </ul>
-    </div>
-
-    <div class="job">
-      <div class="job-head">
-        <span class="job-title">Web Developer Intern</span>
-        <span class="job-org mono">StringOne</span>
-      </div>
-      <ul>
-        <li>Contributed to web development projects over a one-year engagement, gaining practical experience in building and maintaining web applications.</li>
-        <li>Worked across the development lifecycle, applying programming and problem-solving skills in a real-world team setting.</li>
-      </ul>
-    </div>
-  </section>
-
-  <!-- PROJECTS -->
-  <section id="projects" class="fade-up">
-    <div class="pad" style="top:14px;"></div>
-    <div class="eyebrow">Build log</div>
-    <h2>Projects</h2>
-    <div class="proj-grid">
-      <div class="proj-card">
-        <div class="proj-name">SmartFarm 360</div>
-        <p>Built a small-scale automated farming system using C++, an Arduino board, and a soil moisture sensor.</p>
-        <p>Designed logic to activate a water pump via relay when soil moisture is low, and shut it off once sufficient moisture is detected, reducing water waste and manual labor.</p>
-      </div>
-      <div class="proj-card">
-        <div class="proj-name">Automatic Medical Dispenser</div>
-        <p>Developed an automated medication dispenser to streamline medicine management and administration for patients.</p>
-        <p>Designed for reliability and ease of use, ensuring patients receive the correct medication at the correct time with minimal human intervention.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- EDUCATION + AWARDS -->
-  <section id="education" class="fade-up">
-    <div class="pad" style="top:14px;"></div>
-    <div class="two-col">
-      <div>
-        <div class="eyebrow">Education</div>
-        <h2>Degree</h2>
-        <div class="entry">
-          <div class="entry-title">B.Tech, Electronics &amp; Communication Engineering</div>
-          <div class="entry-sub">SRM Institute of Science and Technology · Chennai, TN · 08/2022 – 06/2026</div>
-          <p>CGPA: 7.75 / 10</p>
+    <!-- TOOLKIT -->
+    <section class="frame" id="toolkit">
+      <span class="frame-label"><b>#</b> toolkit</span>
+      <h2>Toolkit</h2>
+      <div class="toolkit">
+        <div>
+          <h3>Design</h3>
+          <ul class="tags lead">
+            <li class="tag">UI/UX design</li>
+            <li class="tag">Figma</li>
+            <li class="tag">Wireframes</li>
+            <li class="tag">Prototypes</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Web</h3>
+          <ul class="tags lead">
+            <li class="tag">HTML</li>
+            <li class="tag">CSS</li>
+            <li class="tag">JavaScript</li>
+            <li class="tag">WordPress</li>
+            <li class="tag">Framer</li>
+            <li class="tag">Webflow</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Engineering</h3>
+          <ul class="tags">
+            <li class="tag">Python</li>
+            <li class="tag">C++</li>
+            <li class="tag">Arduino</li>
+            <li class="tag">Sensor interfacing</li>
+            <li class="tag">PCB design</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Professional</h3>
+          <ul class="tags">
+            <li class="tag">Team collaboration</li>
+            <li class="tag">Communication</li>
+            <li class="tag">Time management</li>
+            <li class="tag">Data management</li>
+            <li class="tag">Quality assurance</li>
+            <li class="tag">Relationship building</li>
+            <li class="tag">Microsoft Word</li>
+          </ul>
         </div>
       </div>
-      <div>
-        <div class="eyebrow">Recognition</div>
-        <h2>Awards</h2>
-        <div class="entry">
-          <div class="entry-title">Best Paper Award</div>
-          <div class="entry-sub">ICMCCT '25, SIMATS Engineering</div>
-          <p>"AI-Powered Medical Dispensers for Remote Healthcare Emergencies" — presented with co-author Rohit M, supported by SRM Institute of Science and Technology.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- CONFERENCES + ACTIVITIES -->
-  <section id="more" class="fade-up">
-    <div class="pad" style="top:14px;"></div>
-    <div class="two-col">
-      <div>
-        <div class="eyebrow">Learning</div>
-        <h2>Conferences &amp; Workshops</h2>
-        <div class="entry">
-          <div class="entry-title">Code Craft — ML Workshop</div>
-          <div class="entry-sub">IETE Club</div>
-          <p>Explored ML fundamentals including model building, data preprocessing, and hands-on implementation with Python and popular ML libraries.</p>
-        </div>
-        <div class="entry">
-          <div class="entry-title">Conference on Embedded Systems</div>
-          <div class="entry-sub">SRM University</div>
-          <p>Gained foundational understanding of microcontroller architecture, real-time operating systems, hardware-software integration, embedded C programming, and sensor interfacing.</p>
-        </div>
+    <!-- EXPERIENCE -->
+    <section class="frame" id="experience">
+      <span class="frame-label"><b>#</b> experience</span>
+      <h2>Experience</h2>
+      <div class="exp">
+        <article class="exp-row">
+          <div>
+            <h3>Web Developer Intern</h3>
+            <p class="exp-org">StringOne · one year</p>
+          </div>
+          <ul>
+            <li>Contributed to web development projects over a one-year engagement, building and maintaining web applications.</li>
+            <li>Worked across the development lifecycle, applying programming and problem-solving skills in a real-world team.</li>
+          </ul>
+        </article>
+        <article class="exp-row">
+          <div>
+            <h3>PCB Design Intern</h3>
+            <p class="exp-org">QuantumPulse Technologies</p>
+          </div>
+          <ul>
+            <li>Sourced electronic components and parts for PCB designs from online distributors and supplier catalogues.</li>
+            <li>Studied IC datasheets and specifications to find replacements for discontinued or legacy components.</li>
+          </ul>
+        </article>
+        <article class="exp-row">
+          <div>
+            <h3>IT Intern</h3>
+            <p class="exp-org">ISTEEL</p>
+          </div>
+          <ul>
+            <li>Supported day-to-day IT operations and troubleshooting across the organisation.</li>
+            <li>Assisted with system maintenance and general technical support.</li>
+          </ul>
+        </article>
       </div>
-      <div>
-        <div class="eyebrow">Beyond the lab</div>
-        <h2>Activities</h2>
-        <div class="entry">
-          <div class="entry-title">Green Voice Global Chennai — Member</div>
-          <p>Participated in tree planting initiatives across Chennai, raising awareness for environmental protection and climate action.</p>
-        </div>
-        <div class="entry">
-          <div class="entry-title">TEXUS 2025 (CIRCUITRIX) — Member</div>
-          <div class="entry-sub">Dept. of ECE, SRM IST Ramapuram</div>
-          <p>Helped organize a circuit design and simulation event featuring a technical quiz, circuit drawing exercise, and circuit debugging challenge.</p>
-        </div>
-        <div class="entry">
-          <div class="entry-title">Languages</div>
-          <p>Tamil (Native) · English (Fluent)</p>
-        </div>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- FOOTER -->
-  <footer class="fade-up">
-    <div class="footer-cta">Let's build something reliable.<br><a href="mailto:mr3495@srmist.edu.in">mr3495@srmist.edu.in</a></div>
-    <div class="footer-links">
-      <a href="tel:+917305086933">+91 7305086933</a>
-      <span style="color:var(--line)">/</span>
-      <span>Chennai, Tamil Nadu</span>
-    </div>
-    <div class="foot-note">YUVAN RAJ M S — REV.2026</div>
+    <!-- WORK -->
+    <section class="frame" id="work">
+      <span class="frame-label"><b>#</b> work</span>
+      <h2>Work</h2>
+      <article class="work-feature">
+        <a href="https://me.yuvanraj.workers.dev" aria-label="Open the live portfolio site">
+          <img class="work-shot" src="assets/work-portfolio.jpg" width="1440" height="900" alt="This portfolio mid-intro: cursor agents drawing selection boxes around the page as they build it">
+        </a>
+        <div>
+          <h3>This portfolio</h3>
+          <p>Designed and built from scratch in plain HTML, CSS and JavaScript, with no framework. On load, a crew of cursor agents builds the page in front of you, drawing selection boxes and typing the text in, and the rest builds as you scroll.</p>
+          <p>Responsive down to phones, respects reduced-motion settings, and hosted on Cloudflare.</p>
+          <div class="actions">
+            <a class="btn btn-primary" href="https://me.yuvanraj.workers.dev">Visit the site</a>
+            <a class="btn btn-quiet" href="https://github.com/YuvanRaj-MS/portfolio">View the code</a>
+          </div>
+        </div>
+      </article>
+
+      <h3 class="work-sub">Engineering projects</h3>
+      <div class="work-grid">
+        <article class="card">
+          <h3>SmartFarm 360</h3>
+          <p>A small-scale automated farming system built with C++, an Arduino board and a soil moisture sensor.</p>
+          <p>It switches a water pump on through a relay when the soil is dry and off once it is moist enough, cutting water waste and manual work.</p>
+        </article>
+        <article class="card">
+          <h3>Automatic Medical Dispenser</h3>
+          <p>An automated medication dispenser that makes medicine management easier for patients.</p>
+          <p>Designed for reliability and ease of use, so patients get the right medication at the right time with minimal help.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- LEARNING & ACTIVITIES -->
+    <section class="frame" id="learning">
+      <span class="frame-label"><b>#</b> learning</span>
+      <h2>Learning &amp; activities</h2>
+      <div class="two-col">
+        <div>
+          <h3 class="col-title">Recognition &amp; learning</h3>
+          <div class="entry">
+            <h3>Best Paper Award</h3>
+            <p class="entry-sub">ICMCCT '25, SIMATS Engineering</p>
+            <p>"AI-Powered Medical Dispensers for Remote Healthcare Emergencies", presented with co-author Rohit M and supported by SRM Institute of Science and Technology.</p>
+          </div>
+          <div class="entry">
+            <h3>Code Craft, ML workshop</h3>
+            <p class="entry-sub">IETE Club</p>
+            <p>Model building, data preprocessing and hands-on implementation with Python and popular ML libraries.</p>
+          </div>
+          <div class="entry">
+            <h3>Conference on Embedded Systems</h3>
+            <p class="entry-sub">SRM University</p>
+            <p>Microcontroller architecture, real-time operating systems, hardware–software integration, embedded C and sensor interfacing.</p>
+          </div>
+        </div>
+        <div>
+          <h3 class="col-title">Beyond work</h3>
+          <div class="entry">
+            <h3>Green Voice Global Chennai</h3>
+            <p class="entry-sub">Member</p>
+            <p>Took part in tree-planting drives across Chennai, raising awareness for environmental protection and climate action.</p>
+          </div>
+          <div class="entry">
+            <h3>TEXUS 2025 (CIRCUITRIX)</h3>
+            <p class="entry-sub">Member · Dept. of ECE, SRM IST Ramapuram</p>
+            <p>Helped organise a circuit design and simulation event with a technical quiz, a circuit drawing exercise and a debugging challenge.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="frame contact" id="contact">
+      <span class="frame-label"><b>#</b> contact</span>
+      <h2>Let's design your next site.</h2>
+      <a class="contact-mail" href="mailto:mr3495@srmist.edu.in">mr3495@srmist.edu.in</a>
+      <div class="meta">
+        <a href="tel:+917305086933">+91 7305086933</a>
+        <span>Chennai, Tamil Nadu</span>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <span class="foot-note">© 2026 Yuvan Raj M S</span>
+    <span class="foot-note">Designed and built in HTML, CSS and JavaScript</span>
   </footer>
 
 </div>
+
+<script>
+  // live size readout on the selected name layer, like a design tool
+  (function(){
+    var layer = document.querySelector('#name-layer h1'), out = document.getElementById('name-size');
+    if(!layer || !out) return;
+    function show(){ var r = layer.getBoundingClientRect(); out.textContent = 'Text · ' + Math.round(r.width) + ' × ' + Math.round(r.height); }
+    show();
+    if(window.ResizeObserver) new ResizeObserver(show).observe(layer); else addEventListener('resize', show);
+    if(document.fonts && document.fonts.ready) document.fonts.ready.then(show);
+  })();
+</script>
 
 <script>
 /* ==========================================================================
@@ -700,20 +710,20 @@ footer{
     scanMs: 1800,             // scan phase length before / speed
     buildLine: 0.86,          // fraction of the viewport height
     ringRadius: 64,           // idle ring around the pointer
-    accent: '#F0A05C',        // selection boxes, guides, ruler highlight
-    chip: '#C9793D',          // "W × H" size chip
-    mono: "'Space Mono', ui-monospace, SFMono-Regular, Menlo, monospace"
+    accent: '#0D99FF',        // selection boxes, guides, ruler highlight
+    chip: '#0B84E0',          // "W × H" size chip
+    mono: "'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace"
   };
   var NAMES  = ['Ari','Bex','Cal','Dot','Eon','Fox','Gem','Hex','Ivo','Jet','Kit','Lyn','Max','Neo','Oz','Pip','Rae','Sol','Taz','Uma'];
   var COLORS = ['#ff5c8a','#34d399','#38bdf8','#facc15','#fb923c','#a78bfa','#f43f5e','#2dd4bf','#60a5fa','#e879f9','#a3e635','#f472b6','#22d3ee','#fbbf24','#c084fc','#4ade80','#fda4af','#93c5fd','#fde047','#86efac'];
 
   // Which elements count as layers. Text layers are typed in, the rest are framed or wiped.
-  var TEXT_SEL = 'h1, h2, .part-no, .role, .eyebrow, .profile-text, .skill-group-label, .pin-list li, ' +
-                 '.job-title, .job-org, .job li, .proj-name, .proj-card p, .entry-title, .entry-sub, .entry p, ' +
-                 '.footer-cta, .meta-row > *, .footer-links > *, .foot-note, .hero-photo figcaption';
-  var LAYER_SEL = TEXT_SEL + ', .trace, .hero, .chip-frame, .hero-grid, .hero-text, .hero-photo, .hero-photo img, ' +
-                  '.meta-row, section, .pad, .skill-cols, .skill-cols > div, ' +
-                  '.pin-list, .job, .job-head, .job ul, .proj-grid, .proj-card, .two-col, .two-col > div, .entry, footer, .footer-links';
+  var TEXT_SEL = 'h1, h2, h3, p, li, dt, dd, .wordmark, .btn, .frame-label, .meta > *, .contact-mail, ' +
+                 '.hero-photo figcaption, .foot-note';
+  var LAYER_SEL = TEXT_SEL + ', .nav, .nav-links, section, .hero-grid, .hero-text, .sel, .actions, .meta, ' +
+                  '.hero-photo, .hero-photo img, .about-grid, .about-text, .facts, .fact, .toolkit, .toolkit > div, .tags, ' +
+                  '.exp, .exp-row, .exp-row ul, .work-feature, .work-feature > div, .work-feature > a, .work-shot, ' +
+                  '.work-grid, .card, .two-col, .two-col > div, .entry, footer';
 
   var backdrop = document.querySelector('.swarm-backdrop');
   var canvas   = document.querySelector('.swarm-canvas');

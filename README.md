@@ -1,6 +1,6 @@
 # Yuvan Raj M S — Portfolio
 
-Personal portfolio of an Embedded Systems & Hardware Engineer, built as one self-contained web page with an animated "swarm build" intro.
+Personal portfolio of a UI/UX & Web Designer, built as one self-contained web page with an animated "swarm build" intro.
 
 **Live site:** https://me.yuvanraj.workers.dev (hosted on Cloudflare)
 
@@ -8,18 +8,17 @@ Personal portfolio of an Embedded Systems & Hardware Engineer, built as one self
 
 ## What it looks like
 
-The page is styled like a circuit board: a dark grid, copper traces and solder pads, and IC-style labels such as `IC://ECE-2026 · STATUS ACTIVE`. The fonts are Space Mono for headings and labels and Inter for body text. The sections are:
+The page looks like a design tool's canvas: a dark background with a dot grid, each section drawn as a frame with its layer name above it (`# about`, `# work`…), and Figma's selection blue (#0D99FF) as the one accent colour. In the hero, the name is shown as a selected text layer whose size readout (`Text · 628 × 206`) measures the real box and updates as the window is resized, and the portrait is a selected image layer. The fonts are Inter for everything you read and JetBrains Mono for the small canvas labels. The sections are:
 
 | Section | Content |
 |---|---|
-| Hero | Name, role, location, contact links and a framed profile photo (`assets/yuvan-raj.jpg`) |
-| Profile | A short summary |
-| Pinout (Skills) | Technical and professional skills |
-| Log (Experience) | PCB design, IT and web development internships |
-| Build log (Projects) | SmartFarm 360 and the Automatic Medical Dispenser |
-| Education & Awards | B.Tech ECE at SRM IST, Best Paper Award (ICMCCT '25) |
-| Conferences, Workshops & Activities | Workshops, clubs, events and languages |
-| Footer | Call to action and contact links |
+| Hero | Name, "UI/UX & Web Designer", a one-line summary, buttons to the work and email, contact details and the portrait (`assets/yuvan-raj.jpg`) |
+| About | A short summary plus quick facts: location, education, recognition, languages |
+| Toolkit | Design, Web, Engineering and Professional skills |
+| Experience | Web developer, PCB design and IT internships |
+| Work | This portfolio as the featured project (`assets/work-portfolio.jpg`), then the SmartFarm 360 and Automatic Medical Dispenser engineering projects |
+| Learning & activities | Best Paper Award, workshops, a conference, clubs and events |
+| Contact | Email, phone and location |
 
 ## How the swarm-build intro works
 
@@ -29,8 +28,8 @@ When the page loads, a team of 14 coloured cursor "agents" builds the page in fr
 2. **Build.** The dark screen fades away and the page appears empty: every section, heading and paragraph is hidden. Each free agent picks the nearest unbuilt element and flies to it, then:
    - draws a **selection box** around the element, with white corner handles and a size label such as `704 × 80`;
    - **types text in** letter by letter, line by line, with a blinking caret and an I-beam cursor;
-   - **wipes blocks in** from left to right (for example the copper solder pads);
-   - for **containers** (sections, cards, the hero frame), turns their borders and backgrounds back on.
+   - **wipes blocks in** from left to right (for example the photos);
+   - for **containers** (the section frames, cards and tags), turns their backgrounds and outlines back on.
 
    Rulers appear along the top and left edges, dashed guide lines line up with each box, and every agent shows a coloured name tag (Ari, Bex, Cal…) while it works.
 3. **Scroll to build.** A red **BUILD LINE** sits at 86 % of the screen height. Anything below it waits, so the rest of the page builds as you scroll down. At the very bottom of the page, whatever is left on screen is built too.
@@ -75,7 +74,7 @@ All the settings are in the `CFG` object at the top of the swarm script in `inde
 | `speed` | `3` | Overall tempo; higher is faster |
 | `buildLine` | `0.86` | Height of the BUILD LINE as a fraction of the screen |
 | `ringRadius` | `64` | Size of the idle ring around the pointer |
-| `accent` / `chip` | copper | Colours of the selection boxes and size labels |
+| `accent` / `chip` | selection blue | Colours of the selection boxes and size labels |
 
 To control which elements get built, edit `TEXT_SEL` (elements that are typed in) and `LAYER_SEL` (everything that is built).
 
@@ -97,4 +96,4 @@ Pushing to GitHub does **not** redeploy it by itself. To publish changes, either
 
 ## Credits
 
-The intro's motion is modelled on the "Swarm Build" animation in the [Cursor](https://www.framer.com/marketplace/templates/cursor/) Framer template by Will Maruiti. It was rebuilt from scratch in vanilla JavaScript and restyled to match this portfolio's copper circuit-board look.
+The intro's motion is modelled on the "Swarm Build" animation in the [Cursor](https://www.framer.com/marketplace/templates/cursor/) Framer template by Will Maruiti. It was rebuilt from scratch in vanilla JavaScript and restyled to match this portfolio's design-canvas look.
