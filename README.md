@@ -2,7 +2,7 @@
 
 Personal portfolio of an Embedded Systems & Hardware Engineer, built as one self-contained web page with an animated "swarm build" intro.
 
-**Live site:** https://yuvanraj-ms.github.io/portfolio/
+**Live site:** https://portfolio.rajyuvan212.workers.dev (hosted on Cloudflare)
 
 ---
 
@@ -88,6 +88,12 @@ python3 -m http.server 8000
 ```
 
 Then visit http://localhost:8000.
+
+## Hosting
+
+The site runs on [Cloudflare Workers](https://developers.cloudflare.com/workers/static-assets/) as a Worker named `portfolio` that serves the static files (`index.html` and `assets/`) from Cloudflare's global network.
+
+Pushing to GitHub does **not** redeploy it by itself. To publish changes, either redeploy the `portfolio` Worker, or connect this repository to it once in the Cloudflare dashboard (Workers & Pages → `portfolio` → Settings → Builds) so that every push to `main` deploys automatically.
 
 ## Credits
 
