@@ -34,7 +34,7 @@ When the page loads, a team of 14 coloured cursor "agents" builds the page in fr
 
    Rulers appear along the top and left edges, dashed guide lines line up with each box, and every agent shows a coloured name tag (Ari, Bex, Cal…) while it works.
 3. **Scroll to build.** A red **BUILD LINE** sits at 86 % of the screen height. Anything below it waits, so the rest of the page builds as you scroll down. At the very bottom of the page, whatever is left on screen is built too.
-4. **Idle.** Agents with nothing to do form a slowly turning ring around your mouse pointer, or around a spot in the upper right if the mouse hasn't moved.
+4. **Idle.** Agents with nothing to do form a slowly turning ring around your mouse pointer. If the mouse hasn't moved, they gather in an empty spot that never covers the profile photo: the side margin on wide screens, under the photo on mid-size screens, and beside it on phones.
 5. **Done.** The status bar reads `Rebuilt N layers in X.Xs` and offers **Replay**.
 
 ### Controls

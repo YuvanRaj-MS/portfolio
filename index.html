@@ -863,6 +863,30 @@ footer{
     ctx.arcTo(x, y + h, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath();
   }
 
+  // Where idle agents gather when the pointer hasn't moved: never on top of the profile photo.
+  var photo = document.querySelector('.hero-photo');
+  function restSpot(){
+    var pad = CFG.ringRadius + 28;                      // ring radius + cursor and name-tag size
+    var right = scope.getBoundingClientRect().right;
+    var gutter = W - right;
+    if(gutter >= pad * 2) return [right + gutter / 2, H * 0.34];   // empty margin beside the page
+    var avoid = photo ? photo.getBoundingClientRect() : null;
+    // phones: the strip beside the photo is the emptiest place on screen
+    var beside = W - (avoid ? avoid.right : W);
+    if(avoid && avoid.bottom > 0 && avoid.top < H && beside >= 2 * (CFG.ringRadius + 14) + 8)
+      return [(avoid.right + W) / 2, avoid.top + avoid.height / 2];
+    var spots = [[W * 0.72, H * 0.34], [W * 0.72, H * 0.62], [W * 0.28, H * 0.62], [W * 0.5, H * 0.8]];
+    // mid-size screens: just under the photo, where the hero card is empty
+    if(avoid && avoid.bottom > 0 && avoid.bottom + 2 * pad + 20 < H)
+      spots.unshift([avoid.left + avoid.width / 2, avoid.bottom + pad + 20]);
+    for(var i = 0; i < spots.length; i++){
+      var x = spots[i][0], y = spots[i][1];
+      if(!avoid || x + pad < avoid.left - 16 || x - pad > avoid.right + 16 ||
+         y + pad < avoid.top - 16 || y - pad > avoid.bottom + 16) return spots[i];
+    }
+    return spots[spots.length - 1];
+  }
+
   var last = performance.now(), tick = 0, lastHud = 0, scanCount = 0;
   function frame(now){
     requestAnimationFrame(frame);
@@ -873,7 +897,8 @@ footer{
     // at the very bottom of the page nothing can scroll higher, so build whatever is on screen
     var atBottom = innerHeight + scrollY >= document.documentElement.scrollHeight - 2;
     var reach = atBottom ? H : line;
-    var hasPtr = ptrX >= 0, cxR = hasPtr ? ptrX : W * 0.72, cyR = hasPtr ? ptrY : H * 0.34;
+    var hasPtr = ptrX >= 0, rest = hasPtr ? null : restSpot();
+    var cxR = hasPtr ? ptrX : rest[0], cyR = hasPtr ? ptrY : rest[1];
 
     if(mode === 'scan'){
       var f = (now - t0) / (scanMs / K);
