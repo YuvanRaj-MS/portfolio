@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yuvan Raj M S — Embedded Systems & Hardware Engineer</title>
+<script>
+  // Swarm build: only runs with JS and when the visitor has not asked for reduced motion.
+  try{
+    if(!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)){
+      document.documentElement.classList.add('swarm-on');
+    }
+  }catch(e){}
+</script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700;800&display=swap');
+
+:root{
+  --bg: #0A0E1A;
+  --bg-alt: #10182C;
+  --copper: #C9793D;
+  --copper-bright: #F0A05C;
+  --signal: #4ADE80;
+  --blue: #5B7FFF;
+  --text: #F1EFE9;
+  --text-dim: #8B93A8;
+  --line: #232B44;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important;}
+}
+
+html{scroll-behavior:smooth;}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Inter',sans-serif;
+  line-height:1.6;
+  overflow-x:hidden;
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size:48px 48px;
+  background-position:-1px -1px;
+}
+
+.mono{font-family:'Space Mono',monospace;}
+
+a{color:var(--copper-bright);}
+
+::selection{background:var(--copper); color:var(--bg);}
+
+/* ---------- layout shell ---------- */
+.wrap{
+  max-width:920px;
+  margin:0 auto;
+  padding:0 28px;
+  position:relative;
+}
+
+.trace{
+  position:absolute;
+  left:8px;
+  top:0;
+  bottom:0;
+  width:2px;
+  background:linear-gradient(var(--copper) 0%, var(--copper) 100%);
+  opacity:0.35;
+}
+@media (max-width:720px){ .trace{display:none;} }
+
+.pad{
+  position:absolute;
+  left:2px;
+  width:14px;
+  height:14px;
+  border-radius:3px;
+  background:var(--bg);
+  border:2px solid var(--copper);
+}
+.pad::after{
+  content:'';
+  position:absolute;
+  inset:3px;
+  border-radius:1px;
+  background:var(--copper);
+}
+@media (max-width:720px){ .pad{display:none;} }
+
+section{
+  position:relative;
+  padding:64px 0 64px 44px;
+  border-bottom:1px solid var(--line);
+}
+@media (max-width:720px){ section{padding-left:0;} }
+
+section:last-of-type{border-bottom:none;}
+
+.eyebrow{
+  font-family:'Space Mono',monospace;
+  font-size:12px;
+  letter-spacing:0.15em;
+  color:var(--copper-bright);
+  text-transform:uppercase;
+  margin-bottom:14px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.eyebrow::before{
+  content:'//';
+  color:var(--text-dim);
+}
+
+h2{
+  font-family:'Space Mono',monospace;
+  font-size:clamp(22px,3.2vw,30px);
+  font-weight:700;
+  margin-bottom:28px;
+  color:var(--text);
+}
+
+/* ---------- hero ---------- */
+.hero{
+  padding:90px 0 70px 0;
+  border-bottom:1px solid var(--line);
+  position:relative;
+}
+.chip-frame{
+  border:1px solid var(--line);
+  background:linear-gradient(180deg, rgba(201,121,61,0.06), transparent 60%);
+  padding:36px 32px;
+  position:relative;
+}
+.chip-frame::before, .chip-frame::after{
+  content:'';
+  position:absolute;
+  width:22px; height:2px;
+  background:var(--copper);
+  top:24px;
+}
+.chip-frame::before{ left:-22px; }
+.chip-frame::after{ right:-22px; }
+
+.part-no{
+  font-family:'Space Mono',monospace;
+  font-size:13px;
+  color:var(--text-dim);
+  letter-spacing:0.1em;
+  margin-bottom:18px;
+}
+.part-no span{ color:var(--signal); }
+
+h1{
+  font-family:'Space Mono',monospace;
+  font-size:clamp(38px,7vw,64px);
+  font-weight:700;
+  line-height:1.05;
+  letter-spacing:-0.01em;
+  margin-bottom:16px;
+}
+h1 .accent{ color:var(--copper-bright); }
+
+.role{
+  font-size:clamp(17px,2.4vw,20px);
+  color:var(--text-dim);
+  font-weight:500;
+  margin-bottom:28px;
+}
+
+.meta-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:24px;
+  font-family:'Space Mono',monospace;
+  font-size:13px;
+  color:var(--text-dim);
+}
+.meta-row a{ color:var(--text-dim); text-decoration:none; border-bottom:1px dashed var(--line); }
+.meta-row a:hover{ color:var(--copper-bright); border-color:var(--copper-bright); }
+.meta-row .dot{ color:var(--signal); }
+
+/* ---------- profile ---------- */
+.profile-text{
+  font-size:17px;
+  color:var(--text);
+  max-width:680px;
+}
+
+/* ---------- skills ---------- */
+.skill-cols{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:36px;
+}
+@media (max-width:600px){ .skill-cols{grid-template-columns:1fr;} }
+
+.skill-group-label{
+  font-family:'Space Mono',monospace;
+  font-size:12px;
+  color:var(--signal);
+  letter-spacing:0.1em;
+  margin-bottom:14px;
+  text-transform:uppercase;
+}
+.pin-list{ list-style:none; display:flex; flex-direction:column; gap:0; }
+.pin-list li{
+  font-family:'Space Mono',monospace;
+  font-size:14px;
+  padding:10px 0;
+  border-bottom:1px solid var(--line);
+  display:flex;
+  align-items:center;
+  gap:10px;
+  color:var(--text);
+}
+.pin-list li::before{
+  content:'';
+  width:6px; height:6px;
+  border-radius:50%;
+  background:var(--copper);
+  flex-shrink:0;
+}
+
+/* ---------- experience ---------- */
+.job{
+  margin-bottom:36px;
+  padding-bottom:36px;
+  border-bottom:1px solid var(--line);
+}
+.job:last-child{ border-bottom:none; margin-bottom:0; padding-bottom:0; }
+
+.job-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:baseline;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-bottom:10px;
+}
+.job-title{ font-size:18px; font-weight:700; color:var(--text); }
+.job-org{
+  font-family:'Space Mono',monospace;
+  font-size:13px;
+  color:var(--copper-bright);
+}
+.job ul{ padding-left:20px; color:var(--text-dim); font-size:15px; }
+.job li{ margin-bottom:6px; }
+
+/* ---------- projects ---------- */
+.proj-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:24px;
+}
+@media (max-width:680px){ .proj-grid{grid-template-columns:1fr;} }
+
+.proj-card{
+  border:1px solid var(--line);
+  padding:26px;
+  background:var(--bg-alt);
+  position:relative;
+  transition:border-color 0.2s ease, transform 0.2s ease;
+}
+.proj-card:hover{ border-color:var(--copper); transform:translateY(-2px); }
+.proj-card::before{
+  content:'PROJ';
+  position:absolute;
+  top:14px; right:16px;
+  font-family:'Space Mono',monospace;
+  font-size:10px;
+  letter-spacing:0.15em;
+  color:var(--line);
+}
+.proj-name{
+  font-family:'Space Mono',monospace;
+  font-size:17px;
+  font-weight:700;
+  margin-bottom:14px;
+  color:var(--text);
+}
+.proj-card p{ color:var(--text-dim); font-size:14.5px; margin-bottom:8px; }
+
+/* ---------- awards / conferences ---------- */
+.entry{ margin-bottom:24px; }
+.entry:last-child{ margin-bottom:0; }
+.entry-title{ font-weight:700; font-size:16px; margin-bottom:4px; }
+.entry-sub{
+  font-family:'Space Mono',monospace;
+  font-size:12.5px;
+  color:var(--signal);
+  margin-bottom:8px;
+}
+.entry p{ color:var(--text-dim); font-size:14.5px; }
+
+/* ---------- two col generic ---------- */
+.two-col{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:40px;
+}
+@media (max-width:680px){ .two-col{grid-template-columns:1fr;} }
+
+/* ---------- footer ---------- */
+footer{
+  padding:70px 0 60px 44px;
+  text-align:left;
+}
+@media (max-width:720px){ footer{padding-left:0;} }
+.footer-cta{
+  font-family:'Space Mono',monospace;
+  font-size:clamp(26px,5vw,40px);
+  font-weight:700;
+  margin-bottom:24px;
+  line-height:1.2;
+}
+.footer-cta a{
+  color:var(--copper-bright);
+  text-decoration:none;
+  border-bottom:2px solid var(--copper);
+}
+.footer-links{
+  display:flex;
+  gap:24px;
+  flex-wrap:wrap;
+  font-family:'Space Mono',monospace;
+  font-size:13px;
+}
+.footer-links a{ color:var(--text-dim); text-decoration:none; }
+.footer-links a:hover{ color:var(--copper-bright); }
+.foot-note{
+  margin-top:50px;
+  font-family:'Space Mono',monospace;
+  font-size:11px;
+  color:var(--line);
+  letter-spacing:0.08em;
+}
+
+/* ---------- swarm build (agents draw the page in) ---------- */
+/* layers waiting to be built */
+[data-swarm="frame"]{background-color:transparent!important;background-image:none!important;box-shadow:none!important;border-color:transparent!important;outline-color:transparent!important;}
+[data-swarm="frame"]::before,[data-swarm="frame"]::after{opacity:0!important;}
+[data-swarm="leaf"],[data-swarm="text"]{clip-path:inset(0 100% 100% 0)!important;}
+
+.swarm-backdrop, .swarm-canvas, .swarm-hud{ display:none; }
+.swarm-on .swarm-backdrop{
+  display:flex;
+  position:fixed; inset:0; width:100vw; height:100vh;
+  z-index:9997;
+  background:var(--bg);
+  align-items:center; justify-content:center;
+  opacity:1; visibility:visible;
+  transition:opacity 0.6s ease, visibility 0s linear 0s;
+}
+.swarm-on .swarm-backdrop.off{
+  opacity:0; visibility:hidden; pointer-events:none;
+  transition:opacity 0.6s ease, visibility 0s linear 0.6s;
+}
+.swarm-tile{
+  width:52px; height:52px; border-radius:14px;
+  background:#141821; border:1px solid #283041;
+  box-shadow:0 0 0 5px rgba(201,121,61,0.07), 0 10px 30px rgba(0,0,0,0.5);
+  display:flex; align-items:center; justify-content:center;
+}
+.swarm-on .swarm-canvas{
+  display:block;
+  position:fixed; left:0; top:0; width:100vw; height:100vh;
+  z-index:9999; pointer-events:none;
+}
+.swarm-on .swarm-hud{
+  display:flex;
+  position:fixed; left:50%; bottom:22px; transform:translateX(-50%);
+  z-index:10000;
+  align-items:center; gap:10px;
+  padding:6px 6px 6px 10px;
+  background:rgba(17,19,24,0.94);
+  border:1px solid #252932; border-radius:11px;
+  box-shadow:0 12px 32px rgba(0,0,0,0.5);
+  color:#a9afbb;
+  font:400 11px/14px 'Space Mono',monospace;
+  white-space:nowrap;
+  backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+}
+.swarm-on .swarm-hud.hidden{ display:none; }
+.swarm-hud b{ color:#fff; font-weight:400; }
+.swarm-hud .agents{ display:flex; }
+.swarm-hud .agents span{
+  width:15px; height:15px; border-radius:8px;
+  border:1.5px solid #111318; margin-left:-5px;
+  color:#0b0d10; font:700 8px Inter,sans-serif;
+  display:flex; align-items:center; justify-content:center;
+}
+.swarm-hud .agents span:first-child{ margin-left:0; }
+.swarm-hud .dim{ color:#6f7684; }
+.swarm-hud .count{ color:#e7e9ee; }
+.swarm-hud .bar{ width:52px; min-width:52px; height:3px; border-radius:2px; background:#262a33; overflow:hidden; display:block; }
+.swarm-hud .bar i{ display:block; height:100%; width:0; background:var(--copper-bright); transition:width 0.2s; }
+.swarm-hud button{
+  border:none; outline:none; cursor:pointer;
+  padding:4px 8px; border-radius:6px;
+  background:#1b1e25; color:#e7e9ee;
+  font:400 11px/14px 'Space Mono',monospace;
+}
+.swarm-hud button:focus-visible{ outline:1px solid var(--copper-bright); }
+.swarm-hud button.x{ background:transparent; color:#6f7684; }
+@media (max-width:809px){
+  .swarm-on .swarm-hud{
+    left:12px; right:12px; bottom:12px; transform:none;
+    justify-content:space-between; gap:8px; padding:8px 8px 8px 12px;
+  }
+  .swarm-hud .msg{ flex:1; overflow:hidden; text-overflow:ellipsis; }
+  .swarm-hud .bar{ flex:1; width:auto; min-width:24px; }
+  .swarm-hud button{ padding:7px 10px; }
+  .swarm-hud button.x{ padding:4px 8px; }
+}
+@media (max-width:429px){ .swarm-hud .agents{ display:none !important; } }
+</style>
+</head>
+<body>
+
+<!-- SWARM BUILD overlay: preloader, agent canvas, status pill -->
+<div class="swarm-backdrop" aria-hidden="true">
+  <div class="swarm-tile">
+    <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
+      <rect x="2" y="2" width="22" height="22" rx="5" stroke="#9aa6bd" stroke-width="1.5" stroke-dasharray="3 3"/>
+      <path d="M9 7 L9 18 L12 15.2 L14.1 19.6 L15.9 18.8 L13.9 14.5 L17.8 14.5 Z" fill="#F0A05C"/>
+    </svg>
+  </div>
+</div>
+<canvas class="swarm-canvas" aria-hidden="true"></canvas>
+<div class="swarm-hud" role="status" aria-live="off">
+  <span class="msg"></span>
+  <span class="bar"><i></i></span>
+  <button type="button" class="act">Tour</button>
+  <button type="button" class="x" aria-label="Skip the build">×</button>
+</div>
+
+<div class="wrap">
+  <div class="trace"></div>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="chip-frame">
+      <div class="part-no">IC://ECE-2026 &nbsp;·&nbsp; STATUS <span>ACTIVE</span> &nbsp;·&nbsp; CHENNAI, IN</div>
+      <h1>YUVAN RAJ<br><span class="accent">M S</span></h1>
+      <div class="role">Embedded Systems &amp; Hardware Engineer</div>
+      <div class="meta-row">
+        <span><span class="dot">●</span> Chennai, Tamil Nadu</span>
+        <a href="tel:+917305086933">+91 7305086933</a>
+        <a href="mailto:mr3495@srmist.edu.in">mr3495@srmist.edu.in</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROFILE -->
+  <section id="profile" class="fade-up">
+    <div class="pad" style="top:14px;"></div>
+    <div class="eyebrow">Profile</div>
+    <h2>What I build and why</h2>
+    <p class="profile-text">
+      Electronics and Communication Engineering graduate (B.Tech, SRM Institute of Science and Technology) with hands-on experience across PCB design, IT support, and web development. Skilled in component sourcing and IC/part cross-referencing, embedded systems fundamentals (Arduino, sensor interfacing), and Python/C++ programming. Best Paper Award recipient for research on AI-powered medical devices. Looking to apply a strong hardware foundation and practical project experience to an embedded/hardware engineering role.
+    </p>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills" class="fade-up">
+    <div class="pad" style="top:14px;"></div>
+    <div class="eyebrow">Pinout</div>
+    <h2>Skills</h2>
+    <div class="skill-cols">
+      <div>
+        <div class="skill-group-label">Technical</div>
+        <ul class="pin-list">
+          <li>Python</li>
+          <li>C++</li>
+          <li>Embedded Systems (Arduino)</li>
+          <li>Sensor Interfacing</li>
+          <li>PCB Design Fundamentals</li>
+          <li>Microsoft Word</li>
+        </ul>
+      </div>
+      <div>
+        <div class="skill-group-label">Professional</div>
+        <ul class="pin-list">
+          <li>Team Collaboration</li>
+          <li>Communication</li>
+          <li>Time Management</li>
+          <li>Data Management</li>
+          <li>Quality Assurance</li>
+          <li>Relationship Building</li>
+          <li>Environmental Awareness</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience" class="fade-up">
+    <div class="pad" style="top:14px;"></div>
+    <div class="eyebrow">Log</div>
+    <h2>Experience</h2>
+
+    <div class="job">
+      <div class="job-head">
+        <span class="job-title">PCB Design Intern</span>
+        <span class="job-org mono">QuantumPulse Technologies</span>
+      </div>
+      <ul>
+        <li>Learned how to source electronic components and parts for PCB designs from online distributors and supplier catalogs.</li>
+        <li>Studied IC datasheets and component specifications to identify suitable replacement parts for discontinued or legacy components.</li>
+      </ul>
+    </div>
+
+    <div class="job">
+      <div class="job-head">
+        <span class="job-title">IT Intern</span>
+        <span class="job-org mono">ISTEEL</span>
+      </div>
+      <ul>
+        <li>Supported day-to-day IT operations and troubleshooting tasks within the organization.</li>
+        <li>Assisted with system maintenance and general technical support duties.</li>
+      </ul>
+    </div>
+
+    <div class="job">
+      <div class="job-head">
+        <span class="job-title">Web Developer Intern</span>
+        <span class="job-org mono">StringOne</span>
+      </div>
+      <ul>
+        <li>Contributed to web development projects over a one-year engagement, gaining practical experience in building and maintaining web applications.</li>
+        <li>Worked across the development lifecycle, applying programming and problem-solving skills in a real-world team setting.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects" class="fade-up">
+    <div class="pad" style="top:14px;"></div>
+    <div class="eyebrow">Build log</div>
+    <h2>Projects</h2>
+    <div class="proj-grid">
+      <div class="proj-card">
+        <div class="proj-name">SmartFarm 360</div>
+        <p>Built a small-scale automated farming system using C++, an Arduino board, and a soil moisture sensor.</p>
+        <p>Designed logic to activate a water pump via relay when soil moisture is low, and shut it off once sufficient moisture is detected, reducing water waste and manual labor.</p>
+      </div>
+      <div class="proj-card">
+        <div class="proj-name">Automatic Medical Dispenser</div>
+        <p>Developed an automated medication dispenser to streamline medicine management and administration for patients.</p>
+        <p>Designed for reliability and ease of use, ensuring patients receive the correct medication at the correct time with minimal human intervention.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION + AWARDS -->
+  <section id="education" class="fade-up">
+    <div class="pad" style="top:14px;"></div>
+    <div class="two-col">
+      <div>
+        <div class="eyebrow">Education</div>
+        <h2>Degree</h2>
+        <div class="entry">
+          <div class="entry-title">B.Tech, Electronics &amp; Communication Engineering</div>
+          <div class="entry-sub">SRM Institute of Science and Technology · Chennai, TN · 08/2022 – 06/2026</div>
+          <p>CGPA: 7.75 / 10</p>
+        </div>
+      </div>
+      <div>
+        <div class="eyebrow">Recognition</div>
+        <h2>Awards</h2>
+        <div class="entry">
+          <div class="entry-title">Best Paper Award</div>
+          <div class="entry-sub">ICMCCT '25, SIMATS Engineering</div>
+          <p>"AI-Powered Medical Dispensers for Remote Healthcare Emergencies" — presented with co-author Rohit M, supported by SRM Institute of Science and Technology.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONFERENCES + ACTIVITIES -->
+  <section id="more" class="fade-up">
+    <div class="pad" style="top:14px;"></div>
+    <div class="two-col">
+      <div>
+        <div class="eyebrow">Learning</div>
+        <h2>Conferences &amp; Workshops</h2>
+        <div class="entry">
+          <div class="entry-title">Code Craft — ML Workshop</div>
+          <div class="entry-sub">IETE Club</div>
+          <p>Explored ML fundamentals including model building, data preprocessing, and hands-on implementation with Python and popular ML libraries.</p>
+        </div>
+        <div class="entry">
+          <div class="entry-title">Conference on Embedded Systems</div>
+          <div class="entry-sub">SRM University</div>
+          <p>Gained foundational understanding of microcontroller architecture, real-time operating systems, hardware-software integration, embedded C programming, and sensor interfacing.</p>
+        </div>
+      </div>
+      <div>
+        <div class="eyebrow">Beyond the lab</div>
+        <h2>Activities</h2>
+        <div class="entry">
+          <div class="entry-title">Green Voice Global Chennai — Member</div>
+          <p>Participated in tree planting initiatives across Chennai, raising awareness for environmental protection and climate action.</p>
+        </div>
+        <div class="entry">
+          <div class="entry-title">TEXUS 2025 (CIRCUITRIX) — Member</div>
+          <div class="entry-sub">Dept. of ECE, SRM IST Ramapuram</div>
+          <p>Helped organize a circuit design and simulation event featuring a technical quiz, circuit drawing exercise, and circuit debugging challenge.</p>
+        </div>
+        <div class="entry">
+          <div class="entry-title">Languages</div>
+          <p>Tamil (Native) · English (Fluent)</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="fade-up">
+    <div class="footer-cta">Let's build something reliable.<br><a href="mailto:mr3495@srmist.edu.in">mr3495@srmist.edu.in</a></div>
+    <div class="footer-links">
+      <a href="tel:+917305086933">+91 7305086933</a>
+      <span style="color:var(--line)">/</span>
+      <span>Chennai, Tamil Nadu</span>
+    </div>
+    <div class="foot-note">YUVAN RAJ M S — REV.2026</div>
+  </footer>
+
+</div>
+
+<script>
+/* ==========================================================================
+   SWARM BUILD
+   A crew of cursor "agents" builds the page in front of the visitor:
+   they orbit while scanning, then draw a selection box around every layer,
+   type the text in, wipe blocks in and move on. Layers below the red
+   BUILD LINE wait until you scroll them up. Esc or × skips, Replay replays.
+   ========================================================================== */
+(function(){
+  var root = document.documentElement;
+  if(!root.classList.contains('swarm-on')) return;
+
+  var CFG = {
+    agents: 14,
+    speed: 3,                 // overall tempo (all durations are divided by this)
+    scanMs: 1800,             // scan phase length before / speed
+    buildLine: 0.86,          // fraction of the viewport height
+    ringRadius: 64,           // idle ring around the pointer
+    accent: '#F0A05C',        // selection boxes, guides, ruler highlight
+    chip: '#C9793D',          // "W × H" size chip
+    mono: "'Space Mono', ui-monospace, SFMono-Regular, Menlo, monospace"
+  };
+  var NAMES  = ['Ari','Bex','Cal','Dot','Eon','Fox','Gem','Hex','Ivo','Jet','Kit','Lyn','Max','Neo','Oz','Pip','Rae','Sol','Taz','Uma'];
+  var COLORS = ['#ff5c8a','#34d399','#38bdf8','#facc15','#fb923c','#a78bfa','#f43f5e','#2dd4bf','#60a5fa','#e879f9','#a3e635','#f472b6','#22d3ee','#fbbf24','#c084fc','#4ade80','#fda4af','#93c5fd','#fde047','#86efac'];
+
+  // Which elements count as layers. Text layers are typed in, the rest are framed or wiped.
+  var TEXT_SEL = 'h1, h2, .part-no, .role, .eyebrow, .profile-text, .skill-group-label, .pin-list li, ' +
+                 '.job-title, .job-org, .job li, .proj-name, .proj-card p, .entry-title, .entry-sub, .entry p, ' +
+                 '.footer-cta, .meta-row > *, .footer-links > *, .foot-note';
+  var LAYER_SEL = TEXT_SEL + ', .trace, .hero, .chip-frame, .meta-row, section, .pad, .skill-cols, .skill-cols > div, ' +
+                  '.pin-list, .job, .job-head, .job ul, .proj-grid, .proj-card, .two-col, .two-col > div, .entry, footer, .footer-links';
+
+  var backdrop = document.querySelector('.swarm-backdrop');
+  var canvas   = document.querySelector('.swarm-canvas');
+  var hud      = document.querySelector('.swarm-hud');
+  var hudMsg   = hud.querySelector('.msg');
+  var hudBar   = hud.querySelector('.bar');
+  var hudFill  = hud.querySelector('.bar i');
+  var hudAct   = hud.querySelector('.act');
+  var hudX     = hud.querySelector('.x');
+  var scope    = document.querySelector('.wrap') || document.body;
+  var ctx = canvas.getContext('2d');
+  if(!ctx){ root.classList.remove('swarm-on'); return; }
+
+  var W = innerWidth, H = innerHeight, DPR = Math.min(2, devicePixelRatio || 1);
+  function resize(){
+    W = innerWidth; H = innerHeight;
+    canvas.width = Math.round(W * DPR); canvas.height = Math.round(H * DPR);
+    canvas.style.width = W + 'px'; canvas.style.height = H + 'px';
+  }
+  resize(); addEventListener('resize', resize);
+
+  var ARROW = new Path2D('M0 0 L0 15.5 L4.2 11.6 L7.1 18 L9.6 16.9 L6.8 10.7 L12.4 10.7 Z');
+  var ARROW_TILT = Math.atan2(-10, -5);
+  var NA = Math.max(1, Math.min(20, Math.round(CFG.agents)));
+  var K = CFG.speed;
+
+  var agents = [];
+  for(var i = 0; i < NA; i++){
+    agents.push({ x:W/2, y:H/2, vx:0, vy:0, ang:0, want:0, tx:W/2, ty:H/2, k:200,
+      color:COLORS[i % COLORS.length], name:NAMES[i % NAMES.length],
+      job:null, box:null, phase:'idle', t0:0, tag:0, beam:false, cx:0, cy:0, ch:0 });
+  }
+
+  var layers = [], boxes = [];
+  var mode = 'scan', t0 = performance.now(), buildStart = 0, doneAt = 0;
+  var scanMs = CFG.scanMs;
+  var ptrX = -1, ptrY = -1, ringPhase = 0, touring = false;
+  var guides = 0, lastBusy = 0, hudHidden = false;
+
+  function easeInOutCubic(p){ return p < 0.5 ? 4*p*p*p : 1 - Math.pow(-2*p + 2, 3) / 2; }
+  function wrapAngle(a){ while(a > Math.PI) a -= Math.PI*2; while(a < -Math.PI) a += Math.PI*2; return a; }
+
+  function unhide(L){ L.el.removeAttribute('data-swarm'); L.el.style.clipPath = ''; }
+  function visible(el){
+    var r = el.getBoundingClientRect();
+    if(r.width < 2 || r.height < 2) return false;
+    var cs = getComputedStyle(el);
+    return cs.display !== 'none' && cs.visibility !== 'hidden';
+  }
+  function collect(){
+    var els = Array.prototype.slice.call(scope.querySelectorAll(LAYER_SEL));
+    var map = new Map(), list = [];
+    els.forEach(function(el){
+      if((el.parentElement && el.parentElement.closest(TEXT_SEL)) || !visible(el)) return;
+      var L = { el:el, kind: el.matches(TEXT_SEL) ? 'text' : 'leaf', parent:null, state:0,
+                chars:(el.textContent || '').length, lines:[] };
+      map.set(el, L); list.push(L);
+    });
+    list.forEach(function(L){
+      var p = L.el.parentElement;
+      while(p && !map.has(p)) p = p.parentElement;
+      if(p){ var P = map.get(p); L.parent = P; if(P.kind === 'leaf') P.kind = 'frame'; }
+    });
+    return list;
+  }
+
+  function start(){
+    layers.forEach(unhide);
+    layers = collect();
+    layers.forEach(function(L){ L.el.setAttribute('data-swarm', L.kind); });
+    boxes = [];
+    agents.forEach(function(a){ a.job = null; a.box = null; a.beam = false; a.phase = 'idle';
+                                 a.x = W/2; a.y = H/2; a.vx = 0; a.vy = 0; });
+    doneAt = 0; mode = 'scan'; t0 = performance.now(); buildStart = 0;
+    backdrop.classList.remove('off');
+    hudHidden = false;
+  }
+  function finish(){
+    layers.forEach(function(L){ unhide(L); L.state = 2; });
+    agents.forEach(function(a){ a.job = null; a.box = null; a.beam = false; });
+    boxes = [];
+    if(mode === 'scan'){ mode = 'build'; buildStart = performance.now(); }
+    backdrop.classList.add('off');
+    doneAt = doneAt || performance.now();
+  }
+  function replay(){ scrollTo({ top: 0, behavior: 'instant' }); start(); }
+
+  hudAct.addEventListener('click', function(){ if(doneAt) replay(); else touring = !touring; });
+  hudX.addEventListener('click', function(){ finish(); hudHidden = true; });
+  addEventListener('pointermove', function(e){
+    // ignore the browser's synthetic "layout changed under the cursor" moves (no movement delta)
+    if(e.pointerType === 'mouse' && !e.movementX && !e.movementY && ptrX < 0) return;
+    ptrX = e.clientX; ptrY = e.clientY;
+  }, { passive:true });
+  addEventListener('keydown', function(e){ touring = false; if(e.key === 'Escape') finish(); });
+  addEventListener('wheel', function(){ touring = false; }, { passive:true });
+  addEventListener('touchstart', function(){ touring = false; }, { passive:true });
+
+  // Line boxes of a text element, relative to its own box, top to bottom.
+  function lineBoxes(el){
+    var box = el.getBoundingClientRect(), range = document.createRange();
+    var walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT), out = [], node = walker.nextNode();
+    while(node){
+      if((node.textContent || '').trim()){
+        range.selectNodeContents(node);
+        Array.prototype.forEach.call(range.getClientRects(), function(r){
+          if(r.width < 0.5) return;
+          var mid = (r.top + r.bottom) / 2 - box.top;
+          var line = out.find(function(l){ return mid > l.top && mid < l.bottom; });
+          if(line){
+            line.left = Math.min(line.left, r.left - box.left); line.right = Math.max(line.right, r.right - box.left);
+            line.top = Math.min(line.top, r.top - box.top);     line.bottom = Math.max(line.bottom, r.bottom - box.top);
+          } else out.push({ top:r.top - box.top, bottom:r.bottom - box.top, left:r.left - box.left, right:r.right - box.left });
+        });
+      }
+      node = walker.nextNode();
+    }
+    return out.sort(function(a, b){ return a.top - b.top; });
+  }
+  // Reveal a fraction p of the text, line by line, and park the caret at the end.
+  function typeTo(L, a, p, rect){
+    var lines = L.lines;
+    if(!lines.length){
+      L.el.style.clipPath = 'inset(0 ' + (100 - p*100) + '% 0 0)';
+      a.cx = rect.left + rect.width * p; a.cy = rect.top; a.ch = rect.height; return;
+    }
+    var total = 0; lines.forEach(function(l){ total += l.right - l.left; });
+    var left = p * total, s = 0;
+    while(s < lines.length - 1 && left > lines[s].right - lines[s].left){ left -= lines[s].right - lines[s].left; s++; }
+    var ln = lines[s], x = ln.left + Math.min(left, ln.right - ln.left);
+    var top = s > 0 ? (lines[s-1].bottom + ln.top) / 2 : -20;
+    var bottom = s < lines.length - 1 ? (ln.bottom + lines[s+1].top) / 2 : rect.height + 20;
+    L.el.style.clipPath = 'polygon(-20px -20px, calc(100% + 20px) -20px, calc(100% + 20px) ' + top + 'px, ' +
+      x + 'px ' + top + 'px, ' + x + 'px ' + bottom + 'px, -20px ' + bottom + 'px)';
+    a.cx = rect.left + x; a.cy = rect.top + ln.top; a.ch = ln.bottom - ln.top;
+  }
+  function release(a, now){
+    var L = a.job;
+    if(L){ L.el.style.clipPath = ''; L.state = 2; }
+    if(a.box) a.box.doneAt = now;
+    a.job = null; a.box = null; a.beam = false; a.phase = 'idle';
+  }
+  function roundRect(x, y, w, h, r){
+    r = Math.min(r, h/2, w/2);
+    ctx.beginPath(); ctx.moveTo(x + r, y);
+    ctx.arcTo(x + w, y, x + w, y + h, r); ctx.arcTo(x + w, y + h, x, y + h, r);
+    ctx.arcTo(x, y + h, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath();
+  }
+
+  var last = performance.now(), tick = 0, lastHud = 0, scanCount = 0;
+  function frame(now){
+    requestAnimationFrame(frame);
+    var dt = Math.min(0.05, Math.max(0.001, (now - last) / 1000));
+    last = now; tick++;
+
+    var line = H * CFG.buildLine;
+    // at the very bottom of the page nothing can scroll higher, so build whatever is on screen
+    var atBottom = innerHeight + scrollY >= document.documentElement.scrollHeight - 2;
+    var reach = atBottom ? H : line;
+    var hasPtr = ptrX >= 0, cxR = hasPtr ? ptrX : W * 0.72, cyR = hasPtr ? ptrY : H * 0.34;
+
+    if(mode === 'scan'){
+      var f = (now - t0) / (scanMs / K);
+      scanCount = Math.round(Math.min(1, f) * layers.length);
+      var rad = Math.min(150, Math.min(W, H) * 0.22), spin = now / 1000 * 2.4;
+      agents.forEach(function(a, i){
+        var ang = spin + (i % 2) * Math.PI - Math.floor(i / 2) * 0.21;
+        a.tx = W/2 + Math.cos(ang) * rad; a.ty = H/2 + Math.sin(ang) * rad;
+        a.k = 700; a.want = ang + Math.PI/2 - ARROW_TILT;
+      });
+      if(f >= 1){ mode = 'build'; buildStart = now; backdrop.classList.add('off'); }
+    } else {
+      var free = agents.filter(function(a){ return !a.job; });
+      if(free.length && tick % 2 === 0){
+        for(var j = 0; j < layers.length && free.length; j++){
+          var L = layers[j];
+          if(L.state !== 0 || (L.parent && L.parent.state === 0)) continue;
+          var r = L.el.getBoundingClientRect();
+          if(r.top >= reach) continue;
+          var best = 0, bestD = Infinity;
+          free.forEach(function(a, n){
+            var d = (a.x - r.left) * (a.x - r.left) + (a.y - r.top) * (a.y - r.top);
+            if(d < bestD){ bestD = d; best = n; }
+          });
+          var a = free.splice(best, 1)[0], bx = { job:L, p:0, doneAt:0 };
+          boxes.push(bx); L.state = 1;
+          a.job = L; a.box = bx; a.phase = 'travel'; a.t0 = now;
+        }
+      }
+      ringPhase += dt * 0.6;
+      agents.forEach(function(a, i){
+        var L = a.job;
+        if(!L){
+          var ang = ringPhase + (i / NA) * Math.PI * 2;
+          a.tx = cxR + Math.cos(ang) * CFG.ringRadius; a.ty = cyR + Math.sin(ang) * CFG.ringRadius;
+          a.k = 38 + ((i * 37) % 11) * 9;
+          a.want = (Math.hypot(a.vx, a.vy) > 140 ? Math.atan2(a.vy, a.vx) : Math.atan2(cyR - a.y, cxR - a.x)) - ARROW_TILT;
+          return;
+        }
+        lastBusy = now; a.want = 0;
+        var r = L.el.getBoundingClientRect(), bx = a.box, p;
+        if(a.phase === 'travel'){
+          a.tx = r.left; a.ty = r.top; a.k = 260;
+          if(Math.hypot(a.x - r.left, a.y - r.top) < 12 || now - a.t0 > 650 / K){ a.phase = 'draw'; a.t0 = now; }
+        } else if(a.phase === 'draw'){
+          var q = Math.min(1, (now - a.t0) / (340 / K));
+          p = easeInOutCubic(q); bx.p = p;
+          a.tx = r.left + r.width * p; a.ty = r.top + r.height * p; a.k = 1100;
+          if(q >= 1){
+            L.el.removeAttribute('data-swarm');
+            if(L.kind === 'text'){ L.lines = lineBoxes(L.el); typeTo(L, a, 0, r); a.phase = 'type'; a.beam = true; a.t0 = now; }
+            else if(L.kind === 'leaf'){ L.el.style.clipPath = 'inset(0 100% 0 0)'; a.phase = 'fill'; a.t0 = now; }
+            else release(a, now);
+          }
+        } else if(a.phase === 'type'){
+          var dur = Math.min(1700, Math.max(260, L.chars * 18)) / K;
+          p = Math.min(1, (now - a.t0) / dur);
+          typeTo(L, a, p, r);
+          a.tx = a.cx + 3; a.ty = a.cy + a.ch * 0.5; a.k = 1100;
+          if(p >= 1) release(a, now);
+        } else if(a.phase === 'fill'){
+          p = easeInOutCubic(Math.min(1, (now - a.t0) / (380 / K)));
+          L.el.style.clipPath = 'inset(0 ' + (100 - p*100) + '% 0 0)';
+          a.tx = r.left + r.width * p; a.ty = r.top + r.height * 0.5; a.k = 900;
+          if(p >= 1) release(a, now);
+        }
+      });
+    }
+
+    // critically-damped-ish springs, two sub-steps
+    agents.forEach(function(a){
+      var n = Math.min(1200, a.k * 1.3), damp = 2 * Math.sqrt(n) * 0.92, h = dt / 2;
+      for(var s = 0; s < 2; s++){
+        a.vx += ((a.tx - a.x) * n - a.vx * damp) * h;
+        a.vy += ((a.ty - a.y) * n - a.vy * damp) * h;
+        a.x += a.vx * h; a.y += a.vy * h;
+      }
+      a.ang += wrapAngle(a.want - a.ang) * Math.min(1, dt * 9);
+      a.tag += ((a.job ? 1 : 0) - a.tag) * Math.min(1, dt * 8);
+    });
+
+    if(touring){
+      scrollBy({ top: 510 * dt, behavior: 'instant' });   // bypass html{scroll-behavior:smooth}
+      if(atBottom) touring = false;
+    }
+
+    var busy = mode === 'build' && now - lastBusy < 900;
+    guides += ((busy ? 1 : 0) - guides) * Math.min(1, dt * 5);
+
+    // ---- draw ----
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    ctx.clearRect(0, 0, W, H);
+    ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic';
+    boxes = boxes.filter(function(b){ return !b.doneAt || now - b.doneAt < 533.3333; });
+    var active = [];
+    boxes.forEach(function(b){
+      var r = b.job.el.getBoundingClientRect(), w = r.width * b.p, h = r.height * b.p;
+      if(!b.doneAt) active.push({ l:r.left, t:r.top, w:w, h:h });
+      if(r.bottom < -40 || r.top > H + 40) return;
+      var alpha = b.doneAt ? Math.max(0, 1 - (now - b.doneAt - 250 / K) / 400) : 1;
+      if(alpha <= 0) return;
+      var x = Math.round(r.left) + 0.5, y = Math.round(r.top) + 0.5;
+      if(!b.doneAt && guides > 0.05){
+        ctx.save(); ctx.globalAlpha = 0.2 * guides; ctx.strokeStyle = CFG.accent; ctx.setLineDash([2, 3]);
+        ctx.beginPath();
+        ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.moveTo(0, y + h); ctx.lineTo(W, y + h);
+        ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.moveTo(x + w, 0); ctx.lineTo(x + w, H);
+        ctx.stroke(); ctx.restore();
+      }
+      ctx.globalAlpha = alpha; ctx.strokeStyle = CFG.accent; ctx.lineWidth = 1;
+      ctx.strokeRect(x, y, Math.round(w), Math.round(h));
+      [[x, y], [x + w, y], [x, y + h], [x + w, y + h]].forEach(function(c){
+        ctx.fillStyle = '#ffffff'; ctx.fillRect(c[0] - 2.5, c[1] - 2.5, 5, 5); ctx.strokeRect(c[0] - 2.5, c[1] - 2.5, 5, 5);
+      });
+      var label = Math.round(w) + ' × ' + Math.round(h);
+      ctx.font = '700 9px ' + CFG.mono;
+      var lw = ctx.measureText(label).width + 10, lx = x + w/2 - lw/2, ly = y + h + 7;
+      roundRect(lx, ly, lw, 14, 3); ctx.fillStyle = CFG.chip; ctx.fill();
+      ctx.fillStyle = '#ffffff'; ctx.textBaseline = 'middle'; ctx.fillText(label, lx + 5, ly + 7.5); ctx.textBaseline = 'alphabetic';
+    });
+    ctx.globalAlpha = 1;
+
+    if(guides > 0.01){
+      var sy = scrollY, v;
+      ctx.globalAlpha = guides; ctx.fillStyle = 'rgba(12,14,18,0.96)';
+      ctx.fillRect(0, 0, W, 18); ctx.fillRect(0, 0, 18, H);
+      ctx.globalAlpha = guides * 0.6; ctx.fillStyle = CFG.accent;
+      active.forEach(function(b){ ctx.fillRect(b.l, 0, b.w, 18); ctx.fillRect(0, b.t, 18, b.h); });
+      ctx.globalAlpha = guides; ctx.strokeStyle = '#353b47'; ctx.lineWidth = 1; ctx.beginPath();
+      for(v = 0; v < W; v += 10){ var tl = v % 100 === 0 ? 18 : v % 50 === 0 ? 7 : 4; ctx.moveTo(v + 0.5, 18 - tl); ctx.lineTo(v + 0.5, 18); }
+      for(v = -(sy % 10); v < H; v += 10){
+        var nv = Math.round(v + sy), tv = nv % 100 === 0 ? 18 : nv % 50 === 0 ? 7 : 4;
+        ctx.moveTo(18 - tv, Math.round(v) + 0.5); ctx.lineTo(18, Math.round(v) + 0.5);
+      }
+      ctx.stroke(); ctx.fillStyle = '#5d6472'; ctx.font = '400 8px ' + CFG.mono;
+      for(v = 100; v < W; v += 100) ctx.fillText(String(v), v + 3, 9);
+      for(v = -(sy % 100); v < H; v += 100){
+        var lbl = Math.round(v + sy);
+        if(lbl <= 0) continue;
+        ctx.save(); ctx.translate(10, v - 3); ctx.rotate(-Math.PI/2); ctx.fillText(String(lbl), 0, 0); ctx.restore();
+      }
+      ctx.fillStyle = '#1d2129'; ctx.fillRect(0, 18, W, 1); ctx.fillRect(18, 0, 1, H);
+      ctx.globalAlpha = guides * 0.85; ctx.fillStyle = '#ef4444';
+      ctx.fillRect(0, Math.round(line), W, 1);
+      ctx.font = '700 8px ' + CFG.mono; ctx.textAlign = 'right';
+      ctx.fillText('BUILD LINE', W - 14, line - 5);
+      ctx.textAlign = 'left'; ctx.globalAlpha = 1;
+    }
+
+    agents.forEach(function(a){
+      if(a.phase === 'type'){ ctx.fillStyle = a.color; ctx.fillRect(a.cx, a.cy, 1.5, a.ch); }
+      ctx.save(); ctx.translate(a.x, a.y);
+      if(a.beam){
+        ctx.strokeStyle = a.color; ctx.lineWidth = 2; ctx.lineCap = 'round'; ctx.beginPath();
+        ctx.moveTo(-3, -7); ctx.lineTo(3, -7); ctx.moveTo(0, -7); ctx.lineTo(0, 7); ctx.moveTo(-3, 7); ctx.lineTo(3, 7);
+        ctx.stroke();
+      } else {
+        ctx.rotate(a.ang);
+        ctx.shadowColor = 'rgba(0,0,0,0.45)'; ctx.shadowBlur = 4; ctx.shadowOffsetY = 1;
+        ctx.fillStyle = a.color; ctx.fill(ARROW);
+        ctx.shadowColor = 'transparent'; ctx.lineWidth = 1.2; ctx.lineJoin = 'round';
+        ctx.strokeStyle = 'rgba(255,255,255,0.92)'; ctx.stroke(ARROW);
+      }
+      ctx.restore();
+      if(a.tag > 0.03){
+        ctx.globalAlpha = a.tag; ctx.font = '700 9px Inter, system-ui, sans-serif';
+        var tw = ctx.measureText(a.name).width, nx = a.x + (a.beam ? 6 : 9), ny = a.y + (a.beam ? 9 : 17);
+        roundRect(nx, ny, tw + 12, 14, 7); ctx.fillStyle = a.color; ctx.fill();
+        ctx.fillStyle = '#0b0d10'; ctx.textBaseline = 'middle'; ctx.fillText(a.name, nx + 6, ny + 7.5);
+        ctx.textBaseline = 'alphabetic'; ctx.globalAlpha = 1;
+      }
+    });
+
+    if(now - lastHud > 90){ lastHud = now; renderHud(now); }
+  }
+
+  var hudKey = '';
+  function renderHud(now){
+    var built = 0;
+    layers.forEach(function(L){ if(L.state === 2) built++; });
+    if(!doneAt && mode === 'build' && built === layers.length) doneAt = now;
+    var phase = mode === 'scan' ? 'scan' : doneAt ? 'done' : 'build';
+    var secs = doneAt ? Math.max(0, doneAt - buildStart) / 1000 : 0;
+    var key = [phase, built, layers.length, scanCount, secs, hudHidden].join('|');
+    if(key === hudKey) return;
+    hudKey = key;
+    hud.classList.toggle('hidden', hudHidden);
+    var frac = phase === 'scan' ? (layers.length ? scanCount / layers.length : 0) : (layers.length ? built / layers.length : 0);
+    if(phase === 'scan'){
+      hudMsg.innerHTML = 'Scanning page… <b>' + scanCount + '</b> layers';
+    } else if(phase === 'done'){
+      hudMsg.innerHTML = 'Rebuilt <b>' + layers.length + '</b> layers in ' + secs.toFixed(1) + 's';
+    } else {
+      var dots = '';
+      for(var i = 0; i < 5; i++) dots += '<span style="background:' + COLORS[i] + '">' + NAMES[i][0] + '</span>';
+      hudMsg.innerHTML = '<span class="agents">' + dots + '</span> <span class="dim">' + NA + ' agents</span> ' +
+                         '<span class="count">' + built + ' / ' + layers.length + ' layers</span>';
+      hudMsg.style.display = 'flex'; hudMsg.style.gap = '10px'; hudMsg.style.alignItems = 'center';
+    }
+    if(phase !== 'build'){ hudMsg.style.display = ''; }
+    hudBar.style.display = phase === 'done' ? 'none' : '';
+    hudFill.style.width = (frac * 100) + '%';
+    hudAct.textContent = phase === 'done' ? 'Replay' : 'Tour';
+  }
+
+  start();
+  requestAnimationFrame(frame);
+})();
+</script>
+
+</body>
+</html>
